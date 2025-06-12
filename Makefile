@@ -9,23 +9,23 @@ RM = rm -rf
 LIB = $(LIB_DIR)libft.a
 
 NAME = push_swap
-SRC = 
-OBJ = 
+SRC = $(SRC_DIR)main.c $(SRC_DIR)linked_list.c $(SRC_DIR)operations.c
+OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
 NAME_BONUS = push_swap_bonus
 SRC_BONUS = 
 OBJ_BONUS = 
 
-all: obj $(LIB) $(NAME)
+all: $(NAME)
 
-obj:
-	mkdir -p $(OBJ_DIR)
+$(NAME): $(LIB) obj $(OBJ) 
+	$(CC) $(OBJ) -o $@ $(LIB)
 
 $(LIB):
 	$(MAKE) -C $(LIB_DIR)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $@ $(LIB)
+obj:
+	mkdir -p $(OBJ_DIR)
 
 bonus: obj $(LIB) $(NAME_BONUS)
 

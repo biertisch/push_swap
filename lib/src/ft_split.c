@@ -46,7 +46,7 @@ static char	**build_arr(char const *s, char c, size_t count)
 	j = 0;
 	while (i < count && s[j])
 	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c))
+		if (s[j] != c && (j == 0 || s[j - 1] == c))
 		{
 			arr[i] = ft_substr(s, j, alt_strlen(s + j, c));
 			if (!arr[i])

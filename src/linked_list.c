@@ -32,7 +32,7 @@ int	get_stack_size(t_node *stack)
 		size++;
 		stack = stack->next;
 	}
-	return (stack);
+	return (size);
 }
 
 t_node	*get_last_node(t_node *stack)

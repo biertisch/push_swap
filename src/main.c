@@ -47,7 +47,7 @@ void	duplicate_check(t_node *stack)
 	}
 }
 
-void	initiate(char **input, t_stack *stacks)
+void	initiate(char **input, t_data *stacks)
 {
 	t_node	*new;
 	int		i; 
@@ -67,7 +67,7 @@ void	initiate(char **input, t_stack *stacks)
 		j = 0;
 		while (input[i][j])
 		{
-			if (!ft_isdigit(input[i][j]) && input[i][j] != " ")
+			if (!ft_isdigit(input[i][j]) && input[i][j] != ' ')
 				error("invalid input", 1);
 			j++;
 		}
@@ -85,17 +85,19 @@ int	main(int argc, char **argv)
 		error("invalid input", 1);
 	if (argc == 2)
 	{
-		input = ft_split(argv[1]);
+		input = ft_split(argv[1], ' ');
 		if (!input)
-			error("invalid input", 1);
+			error("memory allocation failed", 2);
 	}
 	else
-		input = argv;
+		input = argv + 1;
 	initiate(input, &stacks);
 
+	//free input
+	//free stacks
+	return (0);
 }
 
-//3 - implement with a way to apply and log operations: sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb, rrr
 //4 - hardcode optimal solutions 2 to 5 elements (use logic trees)
 //5 - implement a scalable sorting algorithm
 
