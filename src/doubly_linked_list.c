@@ -12,17 +12,17 @@
 
 #include "../include/push_swap.h"
 
-void	clear_stack(t_node **stack)
+void	free_stack(t_double_list **stack)
 {
 	if (!stack || !*stack)
 		return ;
 	while((*stack)->next)
-		clear_stack(&(*stack)->next);
+		free_stack(&(*stack)->next);
 	free(*stack);
 	*stack = NULL;
 }
 
-int	get_stack_size(t_node *stack)
+int	get_stack_size(t_double_list *stack)
 {
 	int	size;
 
@@ -35,7 +35,7 @@ int	get_stack_size(t_node *stack)
 	return (size);
 }
 
-t_node	*get_last_node(t_node *stack)
+t_double_list	*get_last_node(t_double_List *stack)
 {
 	if (!stack)
 		return (NULL);
@@ -44,9 +44,9 @@ t_node	*get_last_node(t_node *stack)
 	return (stack);
 }
 
-void	add_node_back(t_node **stack, t_node *new)
+void	add_node_back(t_double_list **stack, t_double_list *new)
 {
-	t_node	*tail;
+	t_double_list	*tail;
 	
 	if (!stack || !new)
 		return ;
@@ -60,11 +60,11 @@ void	add_node_back(t_node **stack, t_node *new)
 	new->prev = tail;
 }
 
-t_node	*create_node(int n)
+t_double_list	*create_node(int n)
 {
-	t_node	*new;
+	t_double_list	*new;
 
-	new = malloc(sizeof(t_node));
+	new = malloc(sizeof(t_double_list));
 	if (!new)
 		return (NULL);
 	new->value = n;

@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/13 06:36:10 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/13 06:36:10 by beatde-a         ###   ########.fr       */
+/*   Created: 2025/06/13 07:48:45 by beatde-a          #+#    #+#             */
+/*   Updated: 2025/06/13 07:48:45 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	main(int argc, char **argv)
+void	free_instr(t_list *instr)
 {
-	t_data	data;
 
-	if (argc < 2)
-		error("invalid input", 1);
-	initiate(argv + 1, &data);
-
-	//free input
-	//free instr
-	//free stacks
-	return (0);
 }
 
-//4 - hardcode optimal solutions 2 to 5 elements (use logic trees)
-//5 - implement a scalable sorting algorithm
+void	add_instr(t_list **instr, char *op)
+{
+	t_list	*new;
 
+	new = ft_lstnew(op);
+	if (!new)
+	{
+		//free data
+		error("memory allocation failed", 2);
+	}
+	ft_lstadd_back(instr, new);
+}
+
+void	print_instr(t_list *instr)
+{
+
+}

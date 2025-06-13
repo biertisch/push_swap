@@ -9,12 +9,16 @@ RM = rm -rf
 LIB = $(LIB_DIR)libft.a
 
 NAME = push_swap
-SRC = $(SRC_DIR)main.c $(SRC_DIR)linked_list.c $(SRC_DIR)operations.c
-OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
-NAME_BONUS = push_swap_bonus
-SRC_BONUS = 
-OBJ_BONUS = 
+SRC = $(SRC_DIR)main.c\
+		$(SRC_DIR)utils.c\
+		$(SRC_DIR)doubly_linked_list.c\
+		$(SRC_DIR)instructions.c\
+		$(SRC_DIR)parser.c\
+		$(SRC_DIR)operations.c\
+		$(SRC_DIR)sort.c\
+
+OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
 all: $(NAME)
 
@@ -27,11 +31,6 @@ $(LIB):
 obj:
 	mkdir -p $(OBJ_DIR)
 
-bonus: obj $(LIB) $(NAME_BONUS)
-
-$(NAME_BONUS): $(OBJ_BONUS)
-	$(CC) $(OBJ_BONUS) -o $@ $(LIB)
-
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c 
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -40,7 +39,7 @@ clean:
 	$(MAKE) -C $(LIB_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME) $(NAME_BONUS)
+	$(RM) $(NAME)
 	$(MAKE) -C $(LIB_DIR) fclean
 
 re: fclean all
