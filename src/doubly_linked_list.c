@@ -12,16 +12,31 @@
 
 #include "../include/push_swap.h"
 
+//perhaps move to memory.c
 void	free_stack(t_double_list **stack)
 {
 	if (!stack || !*stack)
 		return ;
-	while((*stack)->next)
+	while ((*stack)->next)
 		free_stack(&(*stack)->next);
 	free(*stack);
 	*stack = NULL;
 }
 
+void	delete_node(t_double_list **node, t_double_list **stack_head)
+{
+	if (!node || !*node || !stack_head)
+		return ;
+	if (*stack_head == *node)
+		*stack_head = (*node)->next;
+	if ((*node)->previous)
+		(*node)->previous->next = (*node)->next;
+	if ((*node)->next)
+		(*node)->next->previous = (*node)->previous;
+	free(*node);
+	*node = NULL;
+}
+//perhaps not necessary
 int	get_stack_size(t_double_list *stack)
 {
 	int	size;
@@ -35,7 +50,7 @@ int	get_stack_size(t_double_list *stack)
 	return (size);
 }
 
-t_double_list	*get_last_node(t_double_List *stack)
+t_double_list	*get_last_node(t_double_list *stack)
 {
 	if (!stack)
 		return (NULL);
@@ -44,10 +59,21 @@ t_double_list	*get_last_node(t_double_List *stack)
 	return (stack);
 }
 
+void	add_node_front(t_double_list **stack, t_double_list *new)
+{
+	if (!stack || !new)
+		return ;
+	if (*stack)
+		(*stack)->previous = new;
+	new->next = *stack;
+	new->previous = NULL;
+	*stack = new;
+}
+
 void	add_node_back(t_double_list **stack, t_double_list *new)
 {
 	t_double_list	*tail;
-	
+
 	if (!stack || !new)
 		return ;
 	if (!*stack)
