@@ -86,7 +86,7 @@ void	add_instr(t_list **instr, char *op)
 
 void	print_instr(t_list *instr)
 {
-	if (instr)
+	if (!instr)
 		return ;	
 	while (instr)
 	{

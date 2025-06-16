@@ -26,25 +26,6 @@ t_double_list	*filter_and_log(char c, t_data *data, char *op_a, char *op_b)
 	}
 }
 
-void	swap(char c, t_data *data)
-{
-	int				tmp;
-	t_double_list	*stack;
-
-	if (c == 's')
-	{
-		swap('a', data);
-		swap('b', data);
-		return ;
-	}
-	stack = filter_and_log(c, data, "sa", "sb");
-	if (!stack || !stack->next)
-		return ;
-	tmp = stack->value;
-	stack->value = stack->next->value;
-	stack->next->value = tmp;
-}
-
 //update size in data
 void	push(char c, t_data *data)
 {
@@ -72,6 +53,25 @@ void	push(char c, t_data *data)
 	mem_check(new, data);
 	add_node_front(to, new);
 	delete_node(from, from);
+}
+
+void	swap(char c, t_data *data)
+{
+	int				tmp;
+	t_double_list	*stack;
+
+	if (c == 's')
+	{
+		swap('a', data);
+		swap('b', data);
+		return ;
+	}
+	stack = filter_and_log(c, data, "sa", "sb");
+	if (!stack || !stack->next)
+		return ;
+	tmp = stack->value;
+	stack->value = stack->next->value;
+	stack->next->value = tmp;
 }
 
 void	rotate(char c, t_data *data)
