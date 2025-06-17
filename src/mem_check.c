@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list.c                                      :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 20:13:05 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/16 20:13:05 by beatde-a         ###   ########.fr       */
+/*   Created: 2025/06/17 15:57:16 by beatde-a          #+#    #+#             */
+/*   Updated: 2025/06/17 15:57:16 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	delete_last_node(t_list **head)
+void	mem_check_stack(t_double_list *node, t_data *data)
 {
-	t_list	*last;
-	t_list	*prev;
-	
-	if (!head || !*head)
-		return ;
-	last = *head;
-	prev = NULL;
-	while (last->next)
+	if (!node)
 	{
-		prev = last;
-		last = last->next;
+		//free data
+		error("memory allocation failed", 2);
 	}
-	free(last->content);
-	free(last);
-	if (prev)
-		prev->next = NULL;
-	else
-		*head = NULL;
+}
+
+void	mem_check_str(char *s, char **split)
+{
+	int	i;
+
+	if (!s && !split)
+	{
+		//free data
+		error("memory allocation failed", 2);
+	}
 }

@@ -1,28 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mem_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/13 06:36:10 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/13 06:36:10 by beatde-a         ###   ########.fr       */
+/*   Created: 2025/06/17 15:58:08 by beatde-a          #+#    #+#             */
+/*   Updated: 2025/06/17 15:58:08 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	main(int argc, char **argv)
+void	free_split(char **split)
 {
-	t_data	data;
+	int	i;
 
-	if (argc < 2)
-		error("invalid input", 1);
-	initiate(argv + 1, &data);
-	//sort
-	//print instructions
-	//free input
-	//free instr
-	//free stacks
-	return (0);
+	i = 0;
+	if (!split)
+		return ;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+	split = NULL;
+}
+
+//check libft- lstclear
+void	free_instr(t_list **instr)
+{
+
+}
+
+void	free_stack(t_double_list **stack)
+{
+	if (!stack || !*stack)
+		return ;
+	while ((*stack)->next)
+		free_stack(&(*stack)->next);
+	free(*stack);
+	*stack = NULL;
+}
+
+void	free_data(t_data *data)
+{
+
 }

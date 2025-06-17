@@ -41,7 +41,7 @@ void	parser(t_data *data)
 	while (data->input[i])
 	{
 		new = create_node(ft_atoi(data->input[i]));
-		mem_check(new, stacks);
+		mem_check_stack(new, stacks);
 		add_node_back(&stacks->stack_a, new);
 		stacks->size_a++;
 		j = 0;
@@ -60,10 +60,10 @@ void	initiate(char **raw_input, t_data *data)
 	if (!raw_input[1])
 	{
 		data->input = ft_split(raw_input[0], ' ');
-		mem_check_str(NULL, formatted_input);
+		mem_check_str(NULL, data->input);
 	}
 	else
-		data->input = ft_strdup(raw_input);
+		data->input = raw_input;
 	data->stack_a = NULL;
 	data->stack_b = NULL;
 	data->size_a = 0;

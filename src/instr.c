@@ -12,11 +12,6 @@
 
 #include "../include/push_swap.h"
 
-//move to memory.c
-void	free_instr(t_list *instr)
-{
-
-}
 char	*combine_ops(char *last_op, char *op)
 {
 	if ((ft_strncmp(last_op, "sa", 2) == 0 && ft_strncmp(op, "sb", 2) == 0)
@@ -26,7 +21,8 @@ char	*combine_ops(char *last_op, char *op)
 		|| (ft_strncmp(last_op, "rb", 2) == 0 && ft_strncmp(op, "ra", 2) == 0))
 		return ("rr");
 	if ((ft_strncmp(last_op, "rra", 3) == 0 && ft_strncmp(op, "rrb", 3) == 0)
-		|| (ft_strncmp(last_op, "rrb", 3) == 0 && ft_strncmp(op, "rra", 3) == 0))
+		|| (ft_strncmp(last_op, "rrb", 3) == 0
+			&& ft_strncmp(op, "rra", 3) == 0))
 		return ("rrr");
 	return (NULL);
 }
@@ -41,7 +37,7 @@ int	cancelling_ops(char *last_op, char *op)
 		|| (ft_strncmp(last_op, "rrb", 3) == 0 && ft_strncmp(op, "rb", 3) == 0)
 		|| (ft_strncmp(last_op, "sa", 2) == 0 && ft_strncmp(op, "sa", 2) == 0)
 		|| (ft_strncmp(last_op, "sb", 2) == 0 && ft_strncmp(op, "sb", 2) == 0)
-		|| (ft_strncmp(last_op, "ss", 2) == 0 && ft_strncmp(op, "ss", 2) == 0))
+		|| (ft_strncmp(last_op, "ss", 2) == 0 && ft_strncmp(op, "ss", 2) == 0));
 }
 
 int	optimize_last_intr(t_list **instr, char *op)
@@ -49,7 +45,7 @@ int	optimize_last_intr(t_list **instr, char *op)
 	t_list	*last;
 	char	*last_op;
 	char	*combo;
-	
+
 	if (!instr || !*instr || !op)
 		return (0);
 	last = ft_lstlast(*instr);
@@ -87,7 +83,7 @@ void	add_instr(t_list **instr, char *op)
 void	print_instr(t_list *instr)
 {
 	if (!instr)
-		return ;	
+		return ;
 	while (instr)
 	{
 		ft_printf("%s\n", instr->content);

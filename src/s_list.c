@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   s_list.c                                	        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/13 06:36:10 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/13 06:36:10 by beatde-a         ###   ########.fr       */
+/*   Created: 2025/06/16 20:13:05 by beatde-a          #+#    #+#             */
+/*   Updated: 2025/06/16 20:13:05 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	main(int argc, char **argv)
+void	delete_last_node(t_list **head)
 {
-	t_data	data;
+	t_list	*last;
+	t_list	*prev;
 
-	if (argc < 2)
-		error("invalid input", 1);
-	initiate(argv + 1, &data);
-	//sort
-	//print instructions
-	//free input
-	//free instr
-	//free stacks
-	return (0);
+	if (!head || !*head)
+		return ;
+	last = *head;
+	prev = NULL;
+	while (last->next)
+	{
+		prev = last;
+		last = last->next;
+	}
+	free(last->content);
+	free(last);
+	if (prev)
+		prev->next = NULL;
+	else
+		*head = NULL;
 }

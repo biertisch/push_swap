@@ -10,15 +10,20 @@ LIB = $(LIB_DIR)libft.a
 
 NAME = push_swap
 
-SRC = $(SRC_DIR)main.c\
-		$(SRC_DIR)utils.c\
-		$(SRC_DIR)doubly_linked_list.c\
-		$(SRC_DIR)instructions.c\
+SRC = $(SRC_DIR)d_list_core.c\
+		$(SRC_DIR)d_list_utils.c\
+		$(SRC_DIR)error.c\
+		$(SRC_DIR)instr.c\
+		$(SRC_DIR)main.c\
+		$(SRC_DIR)mem_check.c\
+		$(SRC_DIR)mem_free.c\
+		$(SRC_DIR)ops_core.c\
+		$(SRC_DIR)ops_utils.c\
 		$(SRC_DIR)parser.c\
-		$(SRC_DIR)operations.c\
+		$(SRC_DIR)s_list.c\
 		$(SRC_DIR)sort.c\
 
-OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
+OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 
 all: $(NAME)
 
