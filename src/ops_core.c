@@ -20,10 +20,11 @@ void	push(char id, t_data *data)
 
 	if (!push_setup(id, data, &from, &to))
 		return ;
-	new = create_node((*from)->value);
-	mem_check(new, data);
-	add_node_front(to, new);
-	delete_node(from, from);
+	new = create_node(from->value);
+	if (!new)
+		error("memory allocation failed", 2, data);
+	add_node_front(&to, new);
+	delete_node(&from, &from);
 }
 
 void	swap(char id, t_data *data)
@@ -84,10 +85,10 @@ void	rev_rotate(char id, t_data *data)
 		return ;
 	stack = get_last_node(stack);
 	tmp = stack->value;
-	while (stack->previous)
+	while (stack->prev)
 	{
-		stack->value = stack->previous->value;
-		stack = stack->previous;
+		stack->value = stack->prev->value;
+		stack = stack->prev;
 	}
 	stack->value = tmp;
 }

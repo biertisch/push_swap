@@ -15,7 +15,6 @@ SRC = $(SRC_DIR)d_list_core.c\
 		$(SRC_DIR)error.c\
 		$(SRC_DIR)instr.c\
 		$(SRC_DIR)main.c\
-		$(SRC_DIR)mem_check.c\
 		$(SRC_DIR)mem_free.c\
 		$(SRC_DIR)ops_core.c\
 		$(SRC_DIR)ops_utils.c\

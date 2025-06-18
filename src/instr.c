@@ -40,7 +40,7 @@ int	cancelling_ops(char *last_op, char *op)
 		|| (ft_strncmp(last_op, "ss", 2) == 0 && ft_strncmp(op, "ss", 2) == 0));
 }
 
-int	optimize_last_intr(t_list **instr, char *op)
+int	optimize_last_intr(t_list **instr, char *op, t_data *data)
 {
 	t_list	*last;
 	char	*last_op;
@@ -60,23 +60,26 @@ int	optimize_last_intr(t_list **instr, char *op)
 	{
 		free(last->content);
 		last->content = ft_strdup(combo);
+		if (!last->content)
+			error("memory allocation failed", 2, data);
 		return (1);
 	}
 	return (0);
 }
 
-void	add_instr(t_list **instr, char *op)
+void	add_instr(t_list **instr, char *op, t_data *data)
 {
 	t_list	*new;
+	char	*dup_op;
 
-	if (optimize_last_intr(instr, op))
+	if (optimize_last_intr(instr, op, data))
 		return ;
-	new = ft_lstnew(op);
+	dup_op = ft_strdup(op);
+	if (!dup_op)
+		error("memory allocation failed", 2, data);
+	new = ft_lstnew(dup_op);
 	if (!new)
-	{
-		//free data
-		error("memory allocation failed", 2);
-	}
+		error("memory allocation failed", 2, data);
 	ft_lstadd_back(instr, new);
 }
 
@@ -86,7 +89,7 @@ void	print_instr(t_list *instr)
 		return ;
 	while (instr)
 	{
-		ft_printf("%s\n", instr->content);
+			ft_printf("%s\n", instr->content);
 		instr = instr->next;
 	}
 }

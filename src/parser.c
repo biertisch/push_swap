@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-void	duplicate_check(t_double_list *stack)
+void	duplicate_check(t_double_list *stack, t_data *data)
 {
 	t_double_list	*current;
 	t_double_list	*checker;
@@ -24,7 +24,7 @@ void	duplicate_check(t_double_list *stack)
 		while (checker)
 		{
 			if (current->value == checker->value)
-				error("invalid input", 1);
+				error("invalid input", 1, data);
 			checker = checker->next;
 		}
 		current = current->next;
@@ -41,14 +41,15 @@ void	parser(t_data *data)
 	while (data->input[i])
 	{
 		new = create_node(ft_atoi(data->input[i]));
-		mem_check_stack(new, stacks);
-		add_node_back(&stacks->stack_a, new);
-		stacks->size_a++;
+		if (!new)
+			error("memory allocation failed", 2, data);
+		add_node_back(&data->stack_a, new);
+		data->size_a++;
 		j = 0;
 		while (data->input[i][j])
 		{
 			if (!ft_isdigit(data->input[i][j]) && data->input[i][j] != ' ')
-				error("invalid input", 1);
+				error("invalid input", 1, data);
 			j++;
 		}
 		i++;
@@ -60,7 +61,8 @@ void	initiate(char **raw_input, t_data *data)
 	if (!raw_input[1])
 	{
 		data->input = ft_split(raw_input[0], ' ');
-		mem_check_str(NULL, data->input);
+		if (!data->input)
+			error("memory allocation failed", 2, data);
 	}
 	else
 		data->input = raw_input;
@@ -70,5 +72,5 @@ void	initiate(char **raw_input, t_data *data)
 	data->size_b = 0;
 	data->instr = NULL;
 	parser(data);
-	duplicate_check(data->stack_a);
+	duplicate_check(data->stack_a, data);
 }

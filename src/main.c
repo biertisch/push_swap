@@ -17,12 +17,10 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc < 2)
-		error("invalid input", 1);
+		error("invalid input", 1, NULL);
 	initiate(argv + 1, &data);
-	//sort
-	//print instructions
-	//free input
-	//free instr
-	//free stacks
+	sort(&data);
+	print_instr(data.instr);
+	free_data(&data);
 	return (0);
 }

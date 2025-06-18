@@ -16,14 +16,15 @@ t_double_list	*general_setup(char id, t_data *data, char *op_a, char *op_b)
 {
 	if (id == 'a')
 	{
-		add_instr(&(data->instr), op_a);
+		add_instr(&(data->instr), op_a, data);
 		return (data->stack_a);
 	}
 	else if (id == 'b')
 	{
-		add_instr(&(data->instr), op_b);
+		add_instr(&(data->instr), op_b, data);
 		return (data->stack_b);
 	}
+	return (NULL);
 }
 
 int	push_setup(char id, t_data *data, t_double_list **from, t_double_list **to)
@@ -32,21 +33,21 @@ int	push_setup(char id, t_data *data, t_double_list **from, t_double_list **to)
 	{
 		if (!data->stack_b)
 			return (0);
-		*from = &data->stack_b;
-		*to = &data->stack_a;
+		*from = data->stack_b;
+		*to = data->stack_a;
 		data->size_a++;
 		data->size_b--;
-		add_instr(&(data->instr), "pa");
+		add_instr(&(data->instr), "pa", data);
 	}
 	else if (id == 'b')
 	{
 		if (!data->stack_a)
 			return (0);
-		*from = &data->stack_a;
-		*to = &data->stack_b;
+		*from = data->stack_a;
+		*to = data->stack_b;
 		data->size_a--;
 		data->size_b++;
-		add_instr(&(data->instr), "pb");
+		add_instr(&(data->instr), "pb", data);
 	}
 	return (1);
 }

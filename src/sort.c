@@ -12,6 +12,44 @@
 
 #include "../include/push_swap.h"
 
+int	get_min_index(t_double_list *stack)
+{
+	int	i;
+	int	min;
+	int	index;
+
+	min = stack->value;
+	index = 0;
+	while (stack)
+	{
+		if (min > stack->value)
+		{
+			min = stack->value;
+			index = i;
+		}			
+		stack = stack->next;
+		i++;
+	}
+	return (index);
+}
+
+void	min_to_top(char id, t_data *data)
+{
+	t_double_list	**stack;
+	int				index;
+	int				size;
+
+	stack = get_stack(id, data);
+	index = get_min_index(*stack);
+	size = get_stack_size(*stack);
+	if (index <= size / 2)
+		while (index--)
+			rotate(id, data);
+	else
+		while(index++ < size)
+			rev_rotate(id, data);
+}
+
 t_double_list	**get_stack(char id, t_data *data)
 {
 	if (id == 'a')
@@ -22,30 +60,21 @@ t_double_list	**get_stack(char id, t_data *data)
 
 void	sort_four_to_five(char id, t_data *data)
 {
-	t_double_list	**stack;
 	char			other;
-	unsigned int	size;
-	unsigned int	i;
-
-	stack = get_stack(id, data);
-	size = get_stack_size(*stack);
+	unsigned int	count;
+	
+	count = get_stack_size(*get_stack(id, data)) - 3;
 	if (id == 'a')
 		other = 'b';
 	else
 		other = 'a';
-	i = 0;
-	while (i < size - 3)
+	while (count--)
 	{
-		if (is_smallest((*stack)->value, *stack))
-		{
-			push(other, data);
-			i++;
-		}
-		else
-			rotate(id, data);
+		min_to_top(id, data);
+		push(other, data);
 	}
 	sort_three(id, data);
-	while (i--)
+	while(++count < 3)
 		push(id, data);
 }
 
@@ -92,6 +121,6 @@ void	sort(t_data *data)
 		sort_three('a', data);
 	else if (data->size_a <= 5)
 		sort_four_to_five('a', data);
-	else
+	//else
 		//scalable sorting algorithm
 }
