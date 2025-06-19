@@ -39,7 +39,6 @@ void	push(char id, t_data *data)
 
 void	swap(char id, t_data *data)
 {
-	int				tmp;
 	t_double_list	*stack;
 
 	if (id == 's')
@@ -51,9 +50,7 @@ void	swap(char id, t_data *data)
 	stack = general_setup(id, data, "sa", "sb");
 	if (!stack || !stack->next)
 		return ;
-	tmp = stack->value;
-	stack->value = stack->next->value;
-	stack->next->value = tmp;
+	int_swap(&stack->value, &stack->next->value);
 }
 
 void	rotate(char id, t_data *data)

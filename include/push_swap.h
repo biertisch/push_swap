@@ -19,6 +19,7 @@
 typedef struct s_double_list
 {
 	int						value;
+	int						index;
 	struct s_double_list	*prev;
 	struct s_double_list	*next;	
 }							t_double_list;
@@ -68,5 +69,11 @@ void			sort_four_to_five(char id, t_data *data);
 t_double_list	**get_stack(char id, t_data *data);
 void			min_to_top(char id, t_data *data);
 int				get_min_index(t_double_list *stack);
+void			radix(t_data *data);
+void			normalize_stack(t_double_list *stack, t_data *data);
+void			bubble_sort(int *array, int size);
+void			stack_to_arr(t_double_list *stack, int *array, int size);
+void			arr_to_stack(t_double_list *stack, int *array, int size);
+void			int_swap(int *a, int *b);
 
 #endif

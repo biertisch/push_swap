@@ -12,6 +12,15 @@
 
 #include "../include/push_swap.h"
 
+void	int_swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp; 
+}
+
 t_double_list	*general_setup(char id, t_data *data, char *op_a, char *op_b)
 {
 	if (id == 'a')

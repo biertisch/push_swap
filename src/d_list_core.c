@@ -60,6 +60,7 @@ t_double_list	*create_node(int n)
 	if (!new)
 		return (NULL);
 	new->value = n;
+	new->index = n;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
