@@ -3,7 +3,7 @@ OBJ_DIR = obj/
 LIB_DIR = lib/
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Iinclude -I$(LIB_DIR)include
+CFLAGS = -Wall -Werror -Wextra -g -Iinclude -I$(LIB_DIR)include
 RM = rm -rf
 
 LIB = $(LIB_DIR)libft.a
@@ -21,6 +21,8 @@ SRC = $(SRC_DIR)d_list_core.c\
 		$(SRC_DIR)parser.c\
 		$(SRC_DIR)s_list.c\
 		$(SRC_DIR)sort.c\
+		$(SRC_DIR)sort_small.c\
+		$(SRC_DIR)sort_big.c\
 
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 

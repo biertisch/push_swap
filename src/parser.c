@@ -48,7 +48,8 @@ void	parser(t_data *data)
 		j = 0;
 		while (data->input[i][j])
 		{
-			if (!ft_isdigit(data->input[i][j]) && data->input[i][j] != ' ')
+			if (!ft_isdigit(data->input[i][j]) && data->input[i][j] != ' '
+				&& data->input[i][j] != '+' && data->input[i][j] != '-')
 				error("invalid input", 1, data);
 			j++;
 		}

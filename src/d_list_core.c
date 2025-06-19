@@ -12,18 +12,17 @@
 
 #include "../include/push_swap.h"
 
-void	delete_node(t_double_list **node, t_double_list **stack_head)
+void	delete_node(t_double_list **head)
 {
-	if (!node || !*node || !stack_head)
+	t_double_list	*tmp;
+	
+	if (!head || !*head)
 		return ;
-	if (*stack_head == *node)
-		*stack_head = (*node)->next;
-	if ((*node)->prev)
-		(*node)->prev->next = (*node)->next;
-	if ((*node)->next)
-		(*node)->next->prev = (*node)->prev;
-	free(*node);
-	*node = NULL;
+	tmp = *head;
+	*head = (*head)->next;
+	if (*head)
+		(*head)->prev = NULL;
+	free(tmp);
 }
 
 void	add_node_front(t_double_list **stack, t_double_list *new)

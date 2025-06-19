@@ -24,7 +24,17 @@ void	push(char id, t_data *data)
 	if (!new)
 		error("memory allocation failed", 2, data);
 	add_node_front(&to, new);
-	delete_node(&from, &from);
+	delete_node(&from);
+	if (id == 'a')
+	{
+		data->stack_a = to;
+		data->stack_b = from;
+	}
+	else
+	{
+		data->stack_a = from;
+		data->stack_b = to;
+	}
 }
 
 void	swap(char id, t_data *data)

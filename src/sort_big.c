@@ -1,35 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/13 08:07:06 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/13 08:07:06 by beatde-a         ###   ########.fr       */
+/*   Created: 2025/06/18 21:02:07 by beatde-a          #+#    #+#             */
+/*   Updated: 2025/06/18 21:02:07 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-t_double_list	**get_stack(char id, t_data *data)
-{
-	if (id == 'a')
-		return (&data->stack_a);
-	else
-		return (&data->stack_b);
-}
-
-void	sort(t_data *data)
-{
-	if (data->size_a <= 1)
-		return ;
-	else if (data->size_a == 2)
-		sort_two('a', data);
-	else if (data->size_a == 3)
-		sort_three('a', data);
-	else if (data->size_a <= 5)
-		sort_four_to_five('a', data);
-	//else
-		//scalable sorting algorithm
-}

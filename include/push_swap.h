@@ -36,7 +36,7 @@ typedef struct s_data
 t_double_list	*create_node(int n);
 void			add_node_back(t_double_list **stack, t_double_list *new);
 void			add_node_front(t_double_list **stack, t_double_list *new);
-void			delete_node(t_double_list **node, t_double_list **stack_head);
+void			delete_node(t_double_list **head);
 t_double_list	*get_last_node(t_double_list *stack);
 int				get_stack_size(t_double_list *stack);
 void			error(char *s, int n, t_data *data);
