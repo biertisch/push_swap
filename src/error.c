@@ -12,9 +12,10 @@
 
 #include "../include/push_swap.h"
 
-void	error(char *s, int n, t_data *data)
+void	error_msg(char *msg, t_data *data)
 {
-	ft_printf("Error: %s\n", s);
+	if (msg)
+		ft_printf("%s\n", msg);
 	free_data(data);
-	exit(n);
+	exit(1);
 }

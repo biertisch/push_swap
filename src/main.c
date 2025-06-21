@@ -17,8 +17,14 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc < 2)
-		error("invalid input", 1, NULL);
-	initiate(argv + 1, &data);
+		return (1);
+	data->stack_a = NULL;
+	data->stack_b = NULL;
+	data->instr = NULL;
+	data->input = NULL;
+	parser(argv + 1, &data);
+
+	
 	sort(&data);
 	print_instr(data.instr);
 	free_data(&data);

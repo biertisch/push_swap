@@ -87,7 +87,7 @@ void	print_instr(t_list *instr)
 {
 	if (!instr)
 		return ;
-	while (instr)
+	while (instr && instr->content)
 	{
 			ft_printf("%s\n", instr->content);
 		instr = instr->next;

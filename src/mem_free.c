@@ -65,6 +65,4 @@ void	free_data(t_data *data)
 	data->stack_b = NULL;
 	data->instr = NULL;
 	data->input = NULL;
-	data->size_a = 0;
-	data->size_b = 0;
 }

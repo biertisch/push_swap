@@ -12,24 +12,24 @@
 
 #include "../include/push_swap.h"
 
-int	get_stack_size(t_double_list *stack)
+int	get_stack_size(t_stack *head)
 {
 	int	size;
 
 	size = 0;
-	while (stack)
+	while (head)
 	{
 		size++;
-		stack = stack->next;
+		head = head->next;
 	}
 	return (size);
 }
 
-t_double_list	*get_last_node(t_double_list *stack)
+t_stack	*get_last_node(t_stack *head)
 {
-	if (!stack)
+	if (!head)
 		return (NULL);
-	while (stack->next)
-		stack = stack->next;
-	return (stack);
+	while (head->next)
+		head = head->next;
+	return (head);
 }

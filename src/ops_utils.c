@@ -44,8 +44,6 @@ int	push_setup(char id, t_data *data, t_double_list **from, t_double_list **to)
 			return (0);
 		*from = data->stack_b;
 		*to = data->stack_a;
-		data->size_a++;
-		data->size_b--;
 		add_instr(&(data->instr), "pa", data);
 	}
 	else if (id == 'b')
@@ -54,8 +52,6 @@ int	push_setup(char id, t_data *data, t_double_list **from, t_double_list **to)
 			return (0);
 		*from = data->stack_a;
 		*to = data->stack_b;
-		data->size_a--;
-		data->size_b++;
 		add_instr(&(data->instr), "pb", data);
 	}
 	return (1);

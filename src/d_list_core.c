@@ -12,9 +12,9 @@
 
 #include "../include/push_swap.h"
 
-void	delete_node(t_double_list **head)
+void	delete_first_node(t_stack **head)
 {
-	t_double_list	*tmp;
+	t_stack	*tmp;
 	
 	if (!head || !*head)
 		return ;
@@ -25,38 +25,37 @@ void	delete_node(t_double_list **head)
 	free(tmp);
 }
 
-void	add_node_front(t_double_list **stack, t_double_list *new)
+void	add_node_front(t_stack **head, t_stack *new)
 {
-	if (!stack || !new)
+	if (!head || !new)
 		return ;
-	if (*stack)
-		(*stack)->prev = new;
-	new->next = *stack;
-	new->prev = NULL;
-	*stack = new;
+	if (*head)
+		(*head)->prev = new;
+	new->next = *head;
+	*head = new;
 }
 
-void	add_node_back(t_double_list **stack, t_double_list *new)
+void	add_node_back(t_stack **head, t_stack *new)
 {
-	t_double_list	*tail;
+	t_stack	*tail;
 
-	if (!stack || !new)
+	if (!head || !new)
 		return ;
-	if (!*stack)
+	if (!*head)
 	{
-		*stack = new;
+		*head = new;
 		return ;
 	}
-	tail = get_last_node(*stack);
+	tail = get_last_node(*head);
 	tail->next = new;
 	new->prev = tail;
 }
 
-t_double_list	*create_node(int n)
+t_stack	*create_node(int n)
 {
-	t_double_list	*new;
+	t_stack	*new;
 
-	new = malloc(sizeof(t_double_list));
+	new = malloc(sizeof(t_stack));
 	if (!new)
 		return (NULL);
 	new->value = n;
