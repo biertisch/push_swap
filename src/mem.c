@@ -42,7 +42,7 @@ void	free_list(t_list **instr)
 void	free_stack(t_stack **stack)
 {
 	t_stack	*tmp;
-	
+
 	if (!stack || !*stack)
 		return ;
 	while (*stack)

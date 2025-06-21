@@ -15,7 +15,7 @@
 static int	check_nbr(char	*s)
 {
 	int	i;
-	
+
 	i = 0;
 	if (s[i] == '+' || s[i] == '-')
 		i++;
@@ -33,7 +33,7 @@ static int	check_nbr(char	*s)
 static int	check_dup(long n, char **input)
 {
 	int	i;
-	
+
 	i = 1;
 	while (input[i])
 	{

@@ -24,7 +24,7 @@ t_stack	*get_last_node(t_stack *head)
 void	delete_first_node(t_stack **head)
 {
 	t_stack	*tmp;
-	
+
 	if (!head || !*head)
 		return ;
 	tmp = *head;

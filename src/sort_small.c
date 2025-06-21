@@ -29,7 +29,7 @@ static int	get_min_index(t_stack *stack)
 		{
 			min = stack->value;
 			index = i;
-		}			
+		}
 		stack = stack->next;
 		i++;
 	}
@@ -49,7 +49,7 @@ static void	min_to_top(char id, t_data *data)
 		while (index--)
 			rotate(id, data);
 	else
-		while(index++ < size)
+		while (index++ < size)
 			rev_rotate(id, data);
 }
 
@@ -59,7 +59,7 @@ void	sort_five(char id, t_data *data)
 	unsigned int	count;
 	unsigned int	i;
 
-	i = 0;	
+	i = 0;
 	count = get_stack_size(*get_stack(id, data)) - 3;
 	if (id == 'a')
 		other = 'b';
@@ -71,7 +71,7 @@ void	sort_five(char id, t_data *data)
 		push(other, data);
 	}
 	sort_three(id, data);
-	while(count--)
+	while (count--)
 		push(id, data);
 }
 

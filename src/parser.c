@@ -42,7 +42,7 @@ static void	split_dup(char **src, char **dest, t_data *data)
 	char	**tmp;
 	int		i;
 	int		j;
-		
+
 	i = 0;
 	while (*src)
 	{
@@ -91,7 +91,7 @@ static int	split_count(char **split, t_data *data)
 static void	format_input(char **raw, t_data *data)
 {
 	int	count;
-	
+
 	count = split_count(raw, data);
 	data->input = malloc(sizeof(char *) * (count + 1));
 	if (!data->input)
@@ -103,7 +103,7 @@ void	parser(char **argv, t_data *data)
 {
 	t_stack	*new;
 	int		i;
-	
+
 	format_input(argv, data);
 	validate_input(data->input, data);
 	i = 0;

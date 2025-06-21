@@ -40,7 +40,7 @@ static void	int_swap(int *x, int *y)
 void	swap(char id, t_data *data)
 {
 	t_stack	*stack;
-	
+
 	if (id == 's')
 	{
 		swap('a', data);

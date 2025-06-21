@@ -36,7 +36,7 @@ int	sorted(t_stack *stack)
 void	sort(t_data *data)
 {
 	int	size;
-	
+
 	if (!data || !data->stack_a || sorted(data->stack_a))
 		return ;
 	size = get_stack_size(data->stack_a);

@@ -45,7 +45,7 @@ static void	rotate_values(t_stack *head)
 void	rotate(char id, t_data *data)
 {
 	t_stack	*stack;
-	
+
 	if (id == 's')
 	{
 		rotate('a', data);
