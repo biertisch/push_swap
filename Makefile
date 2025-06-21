@@ -13,7 +13,7 @@ NAME = push_swap
 SRC = $(SRC_DIR)main.c\
 		$(SRC_DIR)mem.c\
 		$(SRC_DIR)parser.c\
-		$(SRC_DIR)parser2.c\
+		$(SRC_DIR)input_check.c\
 		$(SRC_DIR)linked_list.c\
 		$(SRC_DIR)linked_list2.c\
 		$(SRC_DIR)push.c\
