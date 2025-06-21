@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-t_double_list	**get_stack(char id, t_data *data)
+t_stack	**get_stack(char id, t_data *data)
 {
 	if (id == 'a')
 		return (&data->stack_a);
@@ -20,16 +20,30 @@ t_double_list	**get_stack(char id, t_data *data)
 		return (&data->stack_b);
 }
 
+int	sorted(t_stack *stack)
+{
+	if (!stack || !stack->next)
+		return (1);
+	while (stack && stack->next)
+	{
+		if (stack->index > stack->next->index)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
+
 void	sort(t_data *data)
 {
-	if (data->size_a <= 1)
+	int	size;
+	
+	if (!data || !data->stack_a || sorted(data->stack_a))
 		return ;
-	else if (data->size_a == 2)
-		sort_two('a', data);
-	else if (data->size_a == 3)
+	size = get_stack_size(data->stack_a);
+	if (size <= 3)
 		sort_three('a', data);
-	else if (data->size_a <= 5)
-		sort_four_to_five('a', data);
+	else if (size <= 5)
+		sort_five('a', data);
 	//else
 		//scalable sorting algorithm
 }

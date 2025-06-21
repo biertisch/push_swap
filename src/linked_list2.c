@@ -12,6 +12,28 @@
 
 #include "../include/push_swap.h"
 
+void	delete_last_node(t_list **head)
+{
+	t_list	*last;
+	t_list	*prev;
+
+	if (!head || !*head)
+		return ;
+	last = *head;
+	prev = NULL;
+	while (last->next)
+	{
+		prev = last;
+		last = last->next;
+	}
+	free(last->content);
+	free(last);
+	if (prev)
+		prev->next = NULL;
+	else
+		*head = NULL;
+}
+
 int	get_stack_size(t_stack *head)
 {
 	int	size;
@@ -23,13 +45,4 @@ int	get_stack_size(t_stack *head)
 		head = head->next;
 	}
 	return (size);
-}
-
-t_stack	*get_last_node(t_stack *head)
-{
-	if (!head)
-		return (NULL);
-	while (head->next)
-		head = head->next;
-	return (head);
 }

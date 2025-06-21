@@ -57,7 +57,7 @@ void	validate_input(char **input, t_data *data)
 		n = ft_atoi(input[i]);
 		if (n < INT_MIN || n > INT_MAX)
 			error_msg("Error", data);
-		if (!check_dup(tmp, input + i))
+		if (!check_dup(n, input + i))
 			error_msg("Error", data);
 		i++;
 	}

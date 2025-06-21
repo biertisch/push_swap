@@ -1,58 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ops_utils.c                                        :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 16:01:19 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/17 16:01:19 by beatde-a         ###   ########.fr       */
+/*   Created: 2025/06/21 22:19:24 by beatde-a          #+#    #+#             */
+/*   Updated: 2025/06/21 22:19:24 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	int_swap(int *a, int *b)
-{
-	int	tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp; 
-}
-
-t_double_list	*general_setup(char id, t_data *data, char *op_a, char *op_b)
+t_stack	*general_setup(char id, t_data *data, char *op_a, char *op_b)
 {
 	if (id == 'a')
 	{
 		add_instr(&(data->instr), op_a, data);
 		return (data->stack_a);
 	}
-	else if (id == 'b')
+	else
 	{
 		add_instr(&(data->instr), op_b, data);
 		return (data->stack_b);
 	}
-	return (NULL);
 }
 
-int	push_setup(char id, t_data *data, t_double_list **from, t_double_list **to)
+static void	int_swap(int *x, int *y)
 {
-	if (id == 'a')
+	int	tmp;
+
+	if (!x || !y)
+		return ;
+	tmp = *x;
+	*x = *y;
+	*y = tmp;
+}
+
+void	swap(char id, t_data *data)
+{
+	t_stack	*stack;
+	
+	if (id == 's')
 	{
-		if (!data->stack_b)
-			return (0);
-		*from = data->stack_b;
-		*to = data->stack_a;
-		add_instr(&(data->instr), "pa", data);
+		swap('a', data);
+		swap('b', data);
+		return ;
 	}
-	else if (id == 'b')
-	{
-		if (!data->stack_a)
-			return (0);
-		*from = data->stack_a;
-		*to = data->stack_b;
-		add_instr(&(data->instr), "pb", data);
-	}
-	return (1);
+	stack = general_setup(id, data, "sa", "sb");
+	if (!stack || !stack->next)
+		return ;
+	int_swap(&stack->value, &stack->next->value);
+	int_swap(&stack->index, &stack->next->index);
 }

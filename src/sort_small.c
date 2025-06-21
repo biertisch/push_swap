@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-int	get_min_index(t_double_list *stack)
+static int	get_min_index(t_stack *stack)
 {
 	int	i;
 	int	min;
@@ -36,11 +36,11 @@ int	get_min_index(t_double_list *stack)
 	return (index);
 }
 
-void	min_to_top(char id, t_data *data)
+static void	min_to_top(char id, t_data *data)
 {
-	t_double_list	**stack;
-	int				index;
-	int				size;
+	t_stack	**stack;
+	int		index;
+	int		size;
 
 	stack = get_stack(id, data);
 	index = get_min_index(*stack);
@@ -53,7 +53,7 @@ void	min_to_top(char id, t_data *data)
 			rev_rotate(id, data);
 }
 
-void	sort_four_to_five(char id, t_data *data)
+void	sort_five(char id, t_data *data)
 {
 	char			other;
 	unsigned int	count;
@@ -77,38 +77,17 @@ void	sort_four_to_five(char id, t_data *data)
 
 void	sort_three(char id, t_data *data)
 {
-	t_double_list	**stack;
-	int				a;
-	int				b;
-	int				c;
+	t_stack	*stack;
+	int		max;
 
-	stack = get_stack(id, data);
-	a = (*stack)->value;
-	b = (*stack)->next->value;
-	c = (*stack)->next->next->value;
-	if (a > b && b < c && a < c)
-		swap(id, data);
-	else if (a > b && b > c)
-	{
-		swap(id, data);
-		rev_rotate(id, data);
-	}
-	else if (a > b && b < c && a > c)
+	stack = *get_stack(id, data);
+	if (!stack || !stack->next)
+		return ;
+	max = get_stack_size(stack) - 1;
+	if (stack->index == max)
 		rotate(id, data);
-	else if (a < b && b > c && a < c)
-	{
-		swap(id, data);
-		rotate(id, data);
-	}
-	else if (a < b && b > c && a > c)
+	else if (stack->next->index == max)
 		rev_rotate(id, data);
-}
-
-void	sort_two(char id, t_data *data)
-{
-	t_double_list	**stack;
-
-	stack = get_stack(id, data);
-	if ((*stack)->value > (*stack)->next->value)
+	if (stack->index > stack->next->index)
 		swap(id, data);
 }

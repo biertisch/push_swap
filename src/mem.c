@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mem_free.c                                         :+:      :+:    :+:   */
+/*   mem.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,19 @@
 
 #include "../include/push_swap.h"
 
-void	free_input(char **input)
+void	free_split(char **arr)
 {
 	int	i;
 
 	i = 0;
-	if (!input || *input)
+	if (!arr || !*arr)
 		return ;
-	while (input[i])
-		free(input[i++]);
-	free(input);
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }
 
-void	free_instr(t_list **instr)
+void	free_list(t_list **instr)
 {
 	t_list	*tmp;
 
@@ -39,9 +39,9 @@ void	free_instr(t_list **instr)
 	}
 }
 
-void	free_stack(t_double_list **stack)
+void	free_stack(t_stack **stack)
 {
-	t_double_list	*tmp;
+	t_stack	*tmp;
 	
 	if (!stack || !*stack)
 		return ;
@@ -59,8 +59,8 @@ void	free_data(t_data *data)
 		return ;
 	free_stack(&data->stack_a);
 	free_stack(&data->stack_b);
-	free_instr(&data->instr);
-	free_input(data->input);
+	free_list(&data->instr);
+	free_split(data->input);
 	data->stack_a = NULL;
 	data->stack_b = NULL;
 	data->instr = NULL;

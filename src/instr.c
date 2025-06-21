@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions.c                                     :+:      :+:    :+:   */
+/*   instr.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,13 @@
 
 #include "../include/push_swap.h"
 
-char	*combine_ops(char *last_op, char *op)
+static char	*combine_ops(char *last_op, char *op)
 {
-	if ((ft_strncmp(last_op, "sa", 2) == 0 && ft_strncmp(op, "sb", 2) == 0)
-		|| (ft_strncmp(last_op, "sb", 2) == 0 && ft_strncmp(op, "sa", 2) == 0))
+	if ((ft_strncmp(last_op, "sa", 3) == 0 && ft_strncmp(op, "sb", 3) == 0)
+		|| (ft_strncmp(last_op, "sb", 3) == 0 && ft_strncmp(op, "sa", 3) == 0))
 		return ("ss");
-	if ((ft_strncmp(last_op, "ra", 2) == 0 && ft_strncmp(op, "rb", 2) == 0)
-		|| (ft_strncmp(last_op, "rb", 2) == 0 && ft_strncmp(op, "ra", 2) == 0))
+	if ((ft_strncmp(last_op, "ra", 3) == 0 && ft_strncmp(op, "rb", 3) == 0)
+		|| (ft_strncmp(last_op, "rb", 3) == 0 && ft_strncmp(op, "ra", 3) == 0))
 		return ("rr");
 	if ((ft_strncmp(last_op, "rra", 3) == 0 && ft_strncmp(op, "rrb", 3) == 0)
 		|| (ft_strncmp(last_op, "rrb", 3) == 0
@@ -27,29 +27,29 @@ char	*combine_ops(char *last_op, char *op)
 	return (NULL);
 }
 
-int	cancelling_ops(char *last_op, char *op)
+static int	cancelling_ops(char *last_op, char *op)
 {
-	return ((ft_strncmp(last_op, "pa", 2) == 0 && ft_strncmp(op, "pb", 2) == 0)
-		|| (ft_strncmp(last_op, "pb", 2) == 0 && ft_strncmp(op, "pa", 2) == 0)
-		|| (ft_strncmp(last_op, "ra", 2) == 0 && ft_strncmp(op, "rra", 3) == 0)
-		|| (ft_strncmp(last_op, "rra", 3) == 0 && ft_strncmp(op, "ra", 2) == 0)
-		|| (ft_strncmp(last_op, "rb", 2) == 0 && ft_strncmp(op, "rrb", 3) == 0)
+	return ((ft_strncmp(last_op, "pa", 3) == 0 && ft_strncmp(op, "pb", 3) == 0)
+		|| (ft_strncmp(last_op, "pb", 3) == 0 && ft_strncmp(op, "pa", 3) == 0)
+		|| (ft_strncmp(last_op, "ra", 3) == 0 && ft_strncmp(op, "rra", 3) == 0)
+		|| (ft_strncmp(last_op, "rra", 3) == 0 && ft_strncmp(op, "ra", 3) == 0)
+		|| (ft_strncmp(last_op, "rb", 3) == 0 && ft_strncmp(op, "rrb", 3) == 0)
 		|| (ft_strncmp(last_op, "rrb", 3) == 0 && ft_strncmp(op, "rb", 3) == 0)
-		|| (ft_strncmp(last_op, "sa", 2) == 0 && ft_strncmp(op, "sa", 2) == 0)
-		|| (ft_strncmp(last_op, "sb", 2) == 0 && ft_strncmp(op, "sb", 2) == 0)
-		|| (ft_strncmp(last_op, "ss", 2) == 0 && ft_strncmp(op, "ss", 2) == 0));
+		|| (ft_strncmp(last_op, "sa", 3) == 0 && ft_strncmp(op, "sa", 3) == 0)
+		|| (ft_strncmp(last_op, "sb", 3) == 0 && ft_strncmp(op, "sb", 3) == 0)
+		|| (ft_strncmp(last_op, "ss", 3) == 0 && ft_strncmp(op, "ss", 3) == 0));
 }
 
-int	optimize_last_intr(t_list **instr, char *op, t_data *data)
+static int	optimize_instr(t_list **instr, char *op, t_data *data)
 {
-	t_list	*last;
+	t_list	*tail;
 	char	*last_op;
 	char	*combo;
 
-	if (!instr || !*instr || !op)
+	if (!instr || !*instr || !op || !data)
 		return (0);
-	last = ft_lstlast(*instr);
-	last_op = last->content;
+	tail = ft_lstlast(*instr);
+	last_op = tail->content;
 	if (cancelling_ops(last_op, op))
 	{
 		delete_last_node(instr);
@@ -58,10 +58,10 @@ int	optimize_last_intr(t_list **instr, char *op, t_data *data)
 	combo = combine_ops(last_op, op);
 	if (combo)
 	{
-		free(last->content);
-		last->content = ft_strdup(combo);
-		if (!last->content)
-			error("memory allocation failed", 2, data);
+		free(tail->content);
+		tail->content = ft_strdup(combo);
+		if (!tail->content)
+			error_msg("Error: memory allocation failed", data);
 		return (1);
 	}
 	return (0);
@@ -72,14 +72,14 @@ void	add_instr(t_list **instr, char *op, t_data *data)
 	t_list	*new;
 	char	*dup_op;
 
-	if (optimize_last_intr(instr, op, data))
+	if (!instr || !op || !data || optimize_instr(instr, op, data))
 		return ;
 	dup_op = ft_strdup(op);
 	if (!dup_op)
-		error("memory allocation failed", 2, data);
+		error_msg("Error: memory allocation failed", data);
 	new = ft_lstnew(dup_op);
 	if (!new)
-		error("memory allocation failed", 2, data);
+		error_msg("Error: memory allocation failed", data);
 	ft_lstadd_back(instr, new);
 }
 
@@ -89,7 +89,7 @@ void	print_instr(t_list *instr)
 		return ;
 	while (instr && instr->content)
 	{
-			ft_printf("%s\n", instr->content);
+		ft_printf("%s\n", instr->content);
 		instr = instr->next;
 	}
 }

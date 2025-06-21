@@ -12,6 +12,15 @@
 
 #include "../include/push_swap.h"
 
+t_stack	*get_last_node(t_stack *head)
+{
+	if (!head)
+		return (NULL);
+	while (head->next)
+		head = head->next;
+	return (head);
+}
+
 void	delete_first_node(t_stack **head)
 {
 	t_stack	*tmp;
@@ -59,7 +68,7 @@ t_stack	*create_node(int n)
 	if (!new)
 		return (NULL);
 	new->value = n;
-	new->index = n;
+	new->index = -1;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
