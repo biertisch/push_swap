@@ -12,16 +12,14 @@
 
 #include "../include/push_swap.h"
 
-static void	normalize_stack(t_stack *head)
+static void	normalize_stack(t_stack *head, t_data *data)
 {
 	t_stack	*tmp;
 	t_stack	*min;
-	int		size;
 	int		i;
 
-	size = get_stack_size(head);
 	i = 0;
-	while (i < size)
+	while (i < data->size)
 	{
 		min = NULL;
 		tmp = head;
@@ -109,11 +107,12 @@ void	parser(char **argv, t_data *data)
 	i = 0;
 	while (data->input[i])
 	{
-		new = create_node(ft_atoi(data->input[i]));
+		new = create_node(ft_atoi(data->input[i]), -1);
 		if (!new)
 			error_msg("Error: memory allocation failed", data);
 		add_node_back(&data->stack_a, new);
 		i++;
 	}
-	normalize_stack(data->stack_a);
+	data->size = i;
+	normalize_stack(data->stack_a, data);
 }

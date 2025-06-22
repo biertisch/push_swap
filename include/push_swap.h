@@ -29,6 +29,7 @@ typedef struct s_data
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	int		size;
 	t_list	*instr;
 	char	**input;
 }			t_data;
@@ -47,7 +48,7 @@ void	parser(char **argv, t_data *data);
 void	validate_input(char **input, t_data *data);
 
 //linked_list
-t_stack	*create_node(int n);
+t_stack	*create_node(int value, int index);
 void	add_node_back(t_stack **head, t_stack *new);
 void	add_node_front(t_stack **head, t_stack *new);
 void	delete_first_node(t_stack **head);
@@ -69,7 +70,7 @@ void	add_instr(t_list **instr, char *op, t_data *data);
 //sort
 void	sort(t_data *data);
 int		sorted(t_stack *stack);
-t_stack	**get_stack(char id, t_data *data);
+t_stack	*get_stack(char id, t_data *data);
 void	sort_three(char id, t_data *data);
 void	sort_five(char id, t_data *data);
 

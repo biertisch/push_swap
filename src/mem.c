@@ -63,6 +63,7 @@ void	free_data(t_data *data)
 	free_split(data->input);
 	data->stack_a = NULL;
 	data->stack_b = NULL;
+	data->size = 0;
 	data->instr = NULL;
 	data->input = NULL;
 }

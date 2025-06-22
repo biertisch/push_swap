@@ -12,62 +12,62 @@
 
 #include "../include/push_swap.h"
 
-static int	get_min_index(t_stack *stack)
+static int	find_min(t_stack *stack)
 {
 	int	i;
 	int	min;
-	int	index;
+	int min_position;
 
 	if (!stack)
 		return (0);
 	i = 0;
-	min = stack->value;
-	index = 0;
+	min = stack->index;
+	min_position = 0;
 	while (stack)
 	{
-		if (stack->value < min)
+		if (stack->index < min)
 		{
-			min = stack->value;
-			index = i;
+			min = stack->index;
+			min_position = i;
 		}
 		stack = stack->next;
 		i++;
 	}
-	return (index);
+	return (min_position);
 }
 
-static void	min_to_top(char id, t_data *data)
+static void	bring_min(char id, t_data *data)
 {
-	t_stack	**stack;
-	int		index;
+	t_stack	*stack;
 	int		size;
+	int		min_position;
 
 	stack = get_stack(id, data);
-	index = get_min_index(*stack);
-	size = get_stack_size(*stack);
-	if (index <= size / 2)
-		while (index--)
+	size = get_stack_size(stack);
+	min_position = find_min(stack);
+	if (min_position < size - min_position)
+		while (min_position--)
 			rotate(id, data);
 	else
-		while (index++ < size)
+		while (min_position++ < size)
 			rev_rotate(id, data);
 }
 
 void	sort_five(char id, t_data *data)
 {
-	char			other;
-	unsigned int	count;
-	unsigned int	i;
+	char	other;
+	int		count;
+	int		i;
 
 	i = 0;
-	count = get_stack_size(*get_stack(id, data)) - 3;
+	count = get_stack_size(get_stack(id, data)) - 3;
 	if (id == 'a')
 		other = 'b';
 	else
 		other = 'a';
 	while (i++ < count)
 	{
-		min_to_top(id, data);
+		bring_min(id, data);
 		push(other, data);
 	}
 	sort_three(id, data);
@@ -78,15 +78,13 @@ void	sort_five(char id, t_data *data)
 void	sort_three(char id, t_data *data)
 {
 	t_stack	*stack;
-	int		max;
 
-	stack = *get_stack(id, data);
+	stack = get_stack(id, data);
 	if (!stack || !stack->next)
 		return ;
-	max = get_stack_size(stack) - 1;
-	if (stack->index == max)
+	if (stack->index == data->size - 1)
 		rotate(id, data);
-	else if (stack->next->index == max)
+	else if (stack->next->index == data->size - 1)
 		rev_rotate(id, data);
 	if (stack->index > stack->next->index)
 		swap(id, data);

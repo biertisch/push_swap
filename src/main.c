@@ -26,10 +26,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (1);
-	data.stack_a = NULL;
-	data.stack_b = NULL;
-	data.instr = NULL;
-	data.input = NULL;
+	ft_bzero(&data, sizeof(t_data));
 	parser(argv + 1, &data);
 	sort(&data);
 	print_instr(data.instr);

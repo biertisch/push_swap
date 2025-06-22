@@ -60,15 +60,15 @@ void	add_node_back(t_stack **head, t_stack *new)
 	new->prev = tail;
 }
 
-t_stack	*create_node(int n)
+t_stack	*create_node(int value, int index)
 {
 	t_stack	*new;
 
 	new = malloc(sizeof(t_stack));
 	if (!new)
 		return (NULL);
-	new->value = n;
-	new->index = -1;
+	new->value = value;
+	new->index = index;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

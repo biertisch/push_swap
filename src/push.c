@@ -43,7 +43,7 @@ void	push(char id, t_data *data)
 
 	if (!push_setup(id, data, &from, &to))
 		return ;
-	new = create_node(from->value);
+	new = create_node(from->value, from->index);
 	if (!new)
 		error_msg("Error: memory allocation failed", data);
 	add_node_front(&to, new);
