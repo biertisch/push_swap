@@ -34,9 +34,6 @@ typedef struct s_data
 	char	**input;
 }			t_data;
 
-//debugging - delete afterwards
-void	print_stack(t_stack *stack);
-
 //main
 int		main(int argc, char **argv);
 void	error_msg(char *msg, t_data *data);
