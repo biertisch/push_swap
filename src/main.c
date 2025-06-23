@@ -12,6 +12,19 @@
 
 #include "../include/push_swap.h"
 
+//for debugging
+void	print_stack(t_stack *stack)
+{
+	ft_printf("INDEX:VALUE\n");
+	if (!stack)
+		ft_printf("empty\n\n");
+	while (stack)
+	{
+		ft_printf("%d:%d\n", stack->index, stack->value);
+		stack = stack->next;
+	}
+}
+
 void	error_msg(char *msg, t_data *data)
 {
 	if (msg)

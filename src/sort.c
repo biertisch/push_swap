@@ -12,14 +12,6 @@
 
 #include "../include/push_swap.h"
 
-t_stack	*get_stack(char id, t_data *data)
-{
-	if (id == 'a')
-		return (data->stack_a);
-	else
-		return (data->stack_b);
-}
-
 int	sorted(t_stack *stack)
 {
 	if (!stack || !stack->next)
@@ -37,10 +29,25 @@ void	sort(t_data *data)
 {
 	if (!data || !data->stack_a || data->size == 1 || sorted(data->stack_a))
 		return ;
+	
+	//debugging
+/* 	ft_printf("BEFORE SORTING:\n");
+	ft_printf("Stack A\n");
+	print_stack(data->stack_a);
+	ft_printf("\nStack B\n");
+	print_stack(data->stack_b); */
+	
 	if (data->size <= 3)
-		sort_three('a', data);
+		sort_three(data);
 	else if (data->size <= 5)
-		sort_five('a', data);
-	//else
-		//scalable sorting algorithm
+		sort_five(data);
+	else
+		radix_sort(data);
+
+	//debugging
+/* 	ft_printf("AFTER SORTING:\n");
+	ft_printf("Stack A\n");
+	print_stack(data->stack_a);
+	ft_printf("\nStack B\n");
+	print_stack(data->stack_b); */
 }

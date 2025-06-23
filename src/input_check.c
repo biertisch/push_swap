@@ -12,6 +12,31 @@
 
 #include "../include/push_swap.h"
 
+static long	ft_atol(const char *nptr)
+{
+	long	res;
+	int		sign;
+	int		i;
+
+	res = 0;
+	i = 0;
+	sign = 1;
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (ft_isdigit(nptr[i]))
+	{
+		res = res * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (res * sign);
+}
+
 static int	check_nbr(char	*s)
 {
 	int	i;
@@ -54,7 +79,7 @@ void	validate_input(char **input, t_data *data)
 	{
 		if (!check_nbr(input[i]))
 			error_msg("Error", data);
-		n = ft_atoi(input[i]);
+		n = ft_atol(input[i]);
 		if (n < INT_MIN || n > INT_MAX)
 			error_msg("Error", data);
 		if (!check_dup(n, input + i))

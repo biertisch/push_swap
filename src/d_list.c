@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list.c                                      :+:      :+:    :+:   */
+/*   d_list.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,19 @@
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+
+int	get_stack_size(t_stack *head)
+{
+	int	size;
+
+	size = 0;
+	while (head)
+	{
+		size++;
+		head = head->next;
+	}
+	return (size);
+}
 
 t_stack	*get_last_node(t_stack *head)
 {
@@ -32,16 +45,6 @@ void	delete_first_node(t_stack **head)
 	if (*head)
 		(*head)->prev = NULL;
 	free(tmp);
-}
-
-void	add_node_front(t_stack **head, t_stack *new)
-{
-	if (!head || !new)
-		return ;
-	if (*head)
-		(*head)->prev = new;
-	new->next = *head;
-	*head = new;
 }
 
 void	add_node_back(t_stack **head, t_stack *new)

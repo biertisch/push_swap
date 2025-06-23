@@ -14,12 +14,10 @@ SRC = $(SRC_DIR)main.c\
 		$(SRC_DIR)mem.c\
 		$(SRC_DIR)parser.c\
 		$(SRC_DIR)input_check.c\
-		$(SRC_DIR)linked_list.c\
-		$(SRC_DIR)linked_list2.c\
-		$(SRC_DIR)push.c\
-		$(SRC_DIR)swap.c\
-		$(SRC_DIR)rotate.c\
-		$(SRC_DIR)rev_rotate.c\
+		$(SRC_DIR)d_list.c\
+		$(SRC_DIR)s_list.c\
+		$(SRC_DIR)ops.c\
+		$(SRC_DIR)ops_utils.c\
 		$(SRC_DIR)instr.c\
 		$(SRC_DIR)sort.c\
 		$(SRC_DIR)sort_small.c\

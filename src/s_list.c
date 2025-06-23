@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list2.c                                     :+:      :+:    :+:   */
+/*   s_list.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -32,17 +32,4 @@ void	delete_last_node(t_list **head)
 		prev->next = NULL;
 	else
 		*head = NULL;
-}
-
-int	get_stack_size(t_stack *head)
-{
-	int	size;
-
-	size = 0;
-	while (head)
-	{
-		size++;
-		head = head->next;
-	}
-	return (size);
 }
