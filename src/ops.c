@@ -85,9 +85,9 @@ void	push(char id, t_data *data)
 		return ;
 	from = get_stack(get_other_id(id), data);
 	to = get_stack(id, data);
-	log_instr(id, data, "pa", "pb");
 	if (!from || !*from || !to)
 		return ;
+	log_instr(id, data, "pa", "pb");
 	node = *from;
 	*from = node->next;
 	if (*from)

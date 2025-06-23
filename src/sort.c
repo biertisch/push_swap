@@ -30,9 +30,11 @@ void	sort(t_data *data)
 	if (!data || !data->stack_a || data->size == 1 || sorted(data->stack_a))
 		return ;
 	if (data->size <= 3)
-		sort_three(data);
+		sort_three('a', data);
 	else if (data->size <= 5)
-		sort_five(data);
+		sort_five('a', data);
+	else if (data->size <= 200)
+		quick_sort_a(data, 0, data->size);
 	else
 		radix_sort(data);
 }

@@ -13,7 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../lib/include/libft.h"
+# include "../libft/include/libft.h"
 # include <stdlib.h>
 # include <limits.h>
 
@@ -81,10 +81,12 @@ void	sort(t_data *data);
 int		sorted(t_stack *stack);
 
 //sort_small
-void	sort_three(t_data *data);
-void	sort_five(t_data *data);
+void	sort_three(char id, t_data *data);
+void	sort_five(char id, t_data *data);
 
 //sort_big
 void	radix_sort(t_data *data);
+void	quick_sort_b(t_data *data, int min_idx, int max_idx);
+void	quick_sort_a(t_data *data, int min_idx, int max_idx);
 
 #endif

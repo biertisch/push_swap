@@ -60,7 +60,6 @@ static int	optimize_instr(t_list **instr, char *op, t_data *data)
 	{
 		free(tail->content);
 		tail->content = ft_strdup(combo);
-		free(combo);
 		if (!tail->content)
 			error_msg("Error: memory allocation failed", data);
 		return (1);

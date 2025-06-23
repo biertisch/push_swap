@@ -1,22 +1,30 @@
 #!/bin/bash
 
-n=500
-min=-500
-max=500
+if [ -z "$1" ]; then
+    echo "Usage: $0 <number_of_integers>"
+    exit 1
+fi
 
-declare -A seen
-unique_numbers=()
+n=$1
 
-while [ ${#unique_numbers[@]} -lt $n ]; do
-  num=$(( RANDOM % (max - min + 1) + min ))
-  if [ -z "${seen[$num]}" ]; then
-    unique_numbers+=($num)
-    seen[$num]=1
-  fi
-done
+generate_unique_random_integers() {
+    local count=$1
+    local numbers=()
 
-input="${unique_numbers[*]}"
+    while [ "${#numbers[@]}" -lt "$count" ]; do
+        num=$(( (RANDOM << 15 | RANDOM) % 20001 - 10000 ))  # Range: -10000 to 10000
+        if [[ ! " ${numbers[@]} " =~ " $num " ]]; then
+            numbers+=("$num")
+        fi
+    done
 
-output=$(./push_swap $input)
-echo "$output" | ./checker_linux $input
-echo "number of steps: $(echo "$output" | wc -l)"
+    echo "${numbers[@]}"
+}
+
+input=$(generate_unique_random_integers "$n")
+
+result=$(./push_swap $input | ./checker_linux $input)
+echo -e "Result: $result"
+
+count=$(./push_swap $input | wc -l)
+echo -e "Number of operations: $count"

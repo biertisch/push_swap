@@ -1,6 +1,6 @@
 SRC_DIR = src/
 OBJ_DIR = obj/
-LIB_DIR = lib/
+LIB_DIR = libft/
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g -Iinclude -I$(LIB_DIR)include

@@ -36,48 +36,51 @@ static int	find_min(t_stack *stack)
 	return (min_position);
 }
 
-static void	bring_min(t_data *data)
+static void	bring_min(char id, t_stack *stack, t_data *data)
 {
 	int		size;
 	int		min_position;
 
-	size = get_stack_size(data->stack_a);
-	min_position = find_min(data->stack_a);
+	size = get_stack_size(stack);
+	min_position = find_min(stack);
 	if (min_position < size - min_position)
 		while (min_position--)
-			rotate('a', data);
+			rotate(id, data);
 	else
 		while (min_position++ < size)
-			rev_rotate('a', data);
+			rev_rotate(id, data);
 }
 
-void	sort_five(t_data *data)
+void	sort_five(char id, t_data *data)
 {
+	t_stack	**stack;
 	int		count;
 	int		i;
 
-	if (!data || !data->stack_a)
-		return ;
+	stack = get_stack(id, data);	
+	count = get_stack_size(*stack) - 3;
 	i = 0;
-	count = get_stack_size(data->stack_a) - 3;
 	while (i++ < count)
 	{
-		bring_min(data);
-		push('b', data);
+		bring_min(id, *stack, data);
+		push(get_other_id(id), data);
 	}
-	sort_three(data);
+	sort_three(id, data);
 	while (count--)
-		push('a', data);
+		push(id, data);
 }
 
-void	sort_three(t_data *data)
+void	sort_three(char id, t_data *data)
 {
-	if (!data || !data->stack_a)
-		return ;
-	if (data->stack_a->index == data->size - 1)
-		rotate('a', data);
-	else if (data->stack_a->next->index == data->size - 1)
-		rev_rotate('a', data);
-	if (data->stack_a->index > data->stack_a->next->index)
-		swap('a', data);
+	t_stack	**stack;
+	int		size;
+	
+	stack = get_stack(id, data);
+	size = get_stack_size(*stack);
+	if ((*stack)->index == size - 1)
+		rotate(id, data);
+	else if ((*stack)->next->index == size - 1)
+		rev_rotate(id, data);
+	if ((*stack)->index > (*stack)->next->index)
+		swap(id, data);
 }
