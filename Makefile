@@ -21,7 +21,9 @@ SRC = $(SRC_DIR)main.c\
 		$(SRC_DIR)instr.c\
 		$(SRC_DIR)sort.c\
 		$(SRC_DIR)sort_small.c\
-		$(SRC_DIR)sort_big.c\
+		$(SRC_DIR)quick_sort_a.c\
+		$(SRC_DIR)quick_sort_b.c\
+		$(SRC_DIR)radix_sort.c\
 
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 

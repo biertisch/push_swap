@@ -15,7 +15,7 @@
 void	rev_rotate(char id, t_data *data)
 {
 	t_stack	**stack;
-	t_stack	*last;
+	t_stack	*tail;
 
 	if (do_both(id, rev_rotate, data))
 		return ;
@@ -23,19 +23,19 @@ void	rev_rotate(char id, t_data *data)
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
 	log_instr(id, data, "rra", "rrb");
-	last = get_last_node(*stack);
-	last->prev->next = NULL;
-	last->prev = NULL;
-	last->next = *stack;
-	(*stack)->prev = last;
-	*stack = last;
+	tail = get_last_node(*stack);
+	tail->prev->next = NULL;
+	tail->prev = NULL;
+	tail->next = *stack;
+	(*stack)->prev = tail;
+	*stack = tail;
 }
 
 void	rotate(char id, t_data *data)
 {
 	t_stack	**stack;
-	t_stack	*first;
-	t_stack	*last;
+	t_stack	*head;
+	t_stack	*tail;
 
 	if (do_both(id, rotate, data))
 		return ;
@@ -43,13 +43,13 @@ void	rotate(char id, t_data *data)
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
 	log_instr(id, data, "ra", "rb");
-	first = *stack;
-	last = get_last_node(*stack);
-	*stack = first->next;
-	first->next->prev = NULL;
-	last->next = first;
-	first->prev = last;
-	first->next = NULL;
+	head = *stack;
+	tail = get_last_node(*stack);
+	*stack = head->next;
+	head->next->prev = NULL;
+	tail->next = head;
+	head->prev = tail;
+	head->next = NULL;
 }
 
 void	swap(char id, t_data *data)
@@ -77,24 +77,22 @@ void	swap(char id, t_data *data)
 
 void	push(char id, t_data *data)
 {
-	t_stack		**from;
-	t_stack		**to;
+	t_stack		**src;
+	t_stack		**dest;
 	t_stack		*node;
 
-	if (!data)
-		return ;
-	from = get_stack(get_other_id(id), data);
-	to = get_stack(id, data);
-	if (!from || !*from || !to)
+	src = get_stack(get_other_id(id), data);
+	dest = get_stack(id, data);
+	if (!src || !*src || !dest)
 		return ;
 	log_instr(id, data, "pa", "pb");
-	node = *from;
-	*from = node->next;
-	if (*from)
-		(*from)->prev = NULL;
-	node->next = *to;
-	if (*to)
-		(*to)->prev = node;
+	node = *src;
+	*src = node->next;
+	if (*src)
+		(*src)->prev = NULL;
+	node->next = *dest;
+	if (*dest)
+		(*dest)->prev = node;
 	node->prev = NULL;
-	*to = node;
+	*dest = node;
 }

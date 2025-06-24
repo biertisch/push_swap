@@ -29,7 +29,7 @@ t_stack	*get_last_node(t_stack *head)
 {
 	if (!head)
 		return (NULL);
-	while (head->next)
+	while (head && head->next)
 		head = head->next;
 	return (head);
 }

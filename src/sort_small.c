@@ -12,75 +12,64 @@
 
 #include "../include/push_swap.h"
 
-static int	find_min(t_stack *stack)
+static void	push_min(t_data *data)
 {
-	int	i;
-	int	min;
+	int	size;
 	int	min_position;
 
-	if (!stack)
-		return (0);
-	i = 0;
-	min = stack->index;
-	min_position = 0;
-	while (stack)
-	{
-		if (stack->index < min)
-		{
-			min = stack->index;
-			min_position = i;
-		}
-		stack = stack->next;
-		i++;
-	}
-	return (min_position);
-}
-
-static void	bring_min(char id, t_stack *stack, t_data *data)
-{
-	int		size;
-	int		min_position;
-
-	size = get_stack_size(stack);
-	min_position = find_min(stack);
-	if (min_position < size - min_position)
+	size = get_stack_size(data->stack_a);
+	min_position = find_position(data->stack_a, find_min(data->stack_a));
+	if (min_position <= size / 2)
 		while (min_position--)
-			rotate(id, data);
+			rotate('a', data);
 	else
 		while (min_position++ < size)
-			rev_rotate(id, data);
+			rev_rotate('a', data);
+	push('b', data);
 }
 
-void	sort_five(char id, t_data *data)
+void	sort_five(t_data *data)
 {
-	t_stack	**stack;
-	int		count;
-	int		i;
+	int	count;
+	int	i;
 
-	stack = get_stack(id, data);	
-	count = get_stack_size(*stack) - 3;
+	if (!data->stack_a)
+		return ;
+	count = get_stack_size(data->stack_a) - 3;
 	i = 0;
 	while (i++ < count)
-	{
-		bring_min(id, *stack, data);
-		push(get_other_id(id), data);
-	}
-	sort_three(id, data);
+		push_min(data);
+	sort_three(data);
 	while (count--)
-		push(id, data);
+		push('a', data);
 }
 
-void	sort_three(char id, t_data *data)
+void	sort_three_b(t_data *data)
 {
-	t_stack	**stack;
-	int		size;
+	int	min;
 	
-	stack = get_stack(id, data);
-	size = get_stack_size(*stack);
-	if ((*stack)->index == size - 1)
-		rotate(id, data);
-	else if ((*stack)->next->index == size - 1)
-		rev_rotate(id, data);
-	if ((*stack)->index > (*stack)->next->index)
-		swap(id, data);
+	if (!data->stack_b || !data->stack_b->next)
+		return ;
+	min = find_min(data->stack_b);
+	if (data->stack_b->index == min)
+		rotate('b', data);
+	else if (data->stack_b->next->index == min)
+		rev_rotate('b', data);
+	if (data->stack_b->index < data->stack_b->next->index)
+		swap('b', data);
+}
+
+void	sort_three(t_data *data)
+{
+	int	max;
+	
+	if (!data->stack_a || !data->stack_a->next)
+		return ;
+	max = find_max(data->stack_a);
+	if (data->stack_a->index == max)
+		rotate('a', data);
+	else if (data->stack_a->next->index == max)
+		rev_rotate('a', data);
+	if (data->stack_a->index > data->stack_a->next->index)
+		swap('a', data);
 }

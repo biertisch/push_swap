@@ -34,6 +34,9 @@ typedef struct s_data
 	char	**input;
 }			t_data;
 
+//debugging
+void	print_stack(t_stack *stack);
+
 //main
 int		main(int argc, char **argv);
 void	error_msg(char *msg, t_data *data);
@@ -79,14 +82,20 @@ void	add_instr(t_list **instr, char *op, t_data *data);
 //sort
 void	sort(t_data *data);
 int		sorted(t_stack *stack);
+int		find_max(t_stack *stack);
+int		find_min(t_stack *stack);
+int		find_position(t_stack *stack, int idx);
 
 //sort_small
-void	sort_three(char id, t_data *data);
-void	sort_five(char id, t_data *data);
+void	sort_three(t_data *data);
+void	sort_three_b(t_data *data);
+void	sort_five(t_data *data);
 
-//sort_big
-void	radix_sort(t_data *data);
+//quick_sort
 void	quick_sort_b(t_data *data, int min_idx, int max_idx);
 void	quick_sort_a(t_data *data, int min_idx, int max_idx);
+
+//radix_sort
+void	radix_sort(t_data *data);
 
 #endif
