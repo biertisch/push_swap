@@ -77,9 +77,9 @@ void	swap(char id, t_data *data)
 
 void	push(char id, t_data *data)
 {
-	t_stack		**src;
-	t_stack		**dest;
-	t_stack		*node;
+	t_stack	**src;
+	t_stack	**dest;
+	t_stack	*node;
 
 	src = get_stack(get_other_id(id), data);
 	dest = get_stack(id, data);

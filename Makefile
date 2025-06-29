@@ -41,6 +41,10 @@ obj:
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c 
 	$(CC) $(CFLAGS) -c $< -o $@
 
+test:
+	curl -L -o test.sh https://raw.githubusercontent.com/biertisch/42_push_swap/refs/heads/main/test.sh
+	chmod +x test.sh
+
 clean:
 	$(RM) $(OBJ_DIR)
 	$(MAKE) -C $(LIB_DIR) clean
@@ -51,4 +55,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all test clean fclean re

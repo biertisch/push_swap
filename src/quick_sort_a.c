@@ -44,32 +44,24 @@ static int	find_last_below(t_stack *stack, int pivot)
 	return (-1);
 }
 
-static int	push_below_pivot(t_data *data, int pivot)
+static void	push_below_pivot(t_data *data, int pivot)
 {
 	int	first;
 	int	last;
-	int	rotations;
 
 	if (!data->stack_a)
-		return (0);
+		return ;
 	first = find_first_below(data->stack_a, pivot);
 	last = find_last_below(data->stack_a, pivot);
 	if (first == -1 && last == -1)
-		return (0);
-	rotations = 0;
-	if ((first * 2) <= last)
-	{
+		return ;
+	if (first <= last)
 		while (first--)
-		{
 			rotate('a', data);
-			rotations++;
-		}
-	}
 	else
 		while (last-- >= 0)
 			rev_rotate('a', data);
 	push('b', data);
-	return (rotations);
 }
 
 static int	count_below_pivot(t_data *data, int pivot)
@@ -92,11 +84,12 @@ void	quick_sort_a(t_data *data, int min_idx, int max_idx)
 {
 	int	pivot;
 	int	count;
-	int	rotations;
+	int	size;
 
 	if (!data->stack_a || min_idx >= max_idx || sorted(data->stack_a))
 		return ;
-	if (get_stack_size(data->stack_a) <= 3)
+	size = get_stack_size(data->stack_a);
+	if (size <= 3)
 	{
 		sort_three(data);
 		return ;
@@ -105,11 +98,8 @@ void	quick_sort_a(t_data *data, int min_idx, int max_idx)
 	count = count_below_pivot(data, pivot);
 	if (!count)
 		return ;
-	rotations = 0;
 	while (count--)
-		rotations += push_below_pivot(data, pivot);
-	while (!sorted(data->stack_a) && rotations--)
-		rev_rotate('a', data);
+		push_below_pivot(data, pivot);
 	quick_sort_a(data, pivot, max_idx);
 	quick_sort_b(data, min_idx, pivot - 1);
 }

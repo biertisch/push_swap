@@ -21,10 +21,34 @@ generate_unique_random_integers() {
     echo "${numbers[@]}"
 }
 
-input=$(generate_unique_random_integers "$n")
+total=0
+min=-1
+max=0
 
-result=$(./push_swap $input | ./checker_linux $input)
-echo -e "Result: $result"
+for i in {1..50}; do
+    echo "Test #$i"
+    input=$(generate_unique_random_integers "$n")
 
-count=$(./push_swap $input | wc -l)
-echo -e "Number of operations: $count"
+    result=$(./push_swap $input | ./checker_linux $input)
+    echo -e "Result: $result"
+
+    count=$(./push_swap $input | wc -l)
+    echo -e "Number of operations: $count"
+    echo "-----------------------------"
+
+    total=$((total + count))
+
+    if [ "$min" -eq -1 ] || [ "$count" -lt "$min" ]; then
+        min=$count
+    fi
+
+    if [ "$count" -gt "$max" ]; then
+        max=$count
+    fi
+done
+
+average=$((total / i))
+
+echo "Lowest number of operations:  $min"
+echo "Highest number of operations: $max"
+echo "Average number of operations: $average"

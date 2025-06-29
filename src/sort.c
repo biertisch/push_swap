@@ -30,7 +30,7 @@ int	find_position(t_stack *stack, int idx)
 int	find_max(t_stack *stack)
 {
 	int	max;
-	
+
 	if (!stack)
 		return (-1);
 	max = stack->index;

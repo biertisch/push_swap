@@ -27,10 +27,9 @@ static int	find_bits(int n)
 
 void	radix_sort(t_data *data)
 {
-	int		max_bits;
-	int		bit;
-	int		i;
-	int		size;
+	int	max_bits;
+	int	bit;
+	int	i;
 
 	if (!data || !data->stack_a)
 		return ;
@@ -38,9 +37,8 @@ void	radix_sort(t_data *data)
 	bit = 0;
 	while (bit < max_bits)
 	{
-		size = get_stack_size(data->stack_a);
 		i = 0;
-		while (i++ < size)
+		while (i++ < data->size)
 		{
 			if (((data->stack_a->index >> bit) & 1) == 0)
 				push('b', data);
@@ -49,6 +47,8 @@ void	radix_sort(t_data *data)
 		}
 		while (data->stack_b)
 			push('a', data);
+		if (sorted(data->stack_a))
+			break ;
 		bit++;
 	}
 }

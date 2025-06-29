@@ -37,7 +37,9 @@ static int	cancelling_ops(char *last_op, char *op)
 		|| (ft_strncmp(last_op, "rrb", 3) == 0 && ft_strncmp(op, "rb", 3) == 0)
 		|| (ft_strncmp(last_op, "sa", 3) == 0 && ft_strncmp(op, "sa", 3) == 0)
 		|| (ft_strncmp(last_op, "sb", 3) == 0 && ft_strncmp(op, "sb", 3) == 0)
-		|| (ft_strncmp(last_op, "ss", 3) == 0 && ft_strncmp(op, "ss", 3) == 0));
+		|| (ft_strncmp(last_op, "ss", 3) == 0 && ft_strncmp(op, "ss", 3) == 0)
+		|| (ft_strncmp(last_op, "pa", 3) == 0 && ft_strncmp(op, "pb", 3) == 0)
+		|| (ft_strncmp(last_op, "pb", 3) == 0 && ft_strncmp(op, "pa", 3) == 0));
 }
 
 static int	optimize_instr(t_list **instr, char *op, t_data *data)
