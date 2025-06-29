@@ -19,7 +19,7 @@ static void	normalize_stack(t_stack *head, t_data *data)
 	int		i;
 
 	i = 0;
-	while (i < data->size)
+	while (i < data->size_a)
 	{
 		min = NULL;
 		tmp = head;
@@ -35,84 +35,84 @@ static void	normalize_stack(t_stack *head, t_data *data)
 	}
 }
 
-static void	split_dup(char **src, char **dest, t_data *data)
+static long	ft_atol(const char *s)
 {
-	char	**tmp;
-	int		i;
-	int		j;
+	long	res;
+	int		sign;
 
-	i = 0;
-	while (*src)
+	res = 0;
+	sign = 1;
+	while (*s == 32 || (*s >= 9 && *s <= 13))
+		s++;
+	if (*s == '+' || *s == '-')
 	{
-		tmp = ft_split(*src, ' ');
-		if (!tmp)
-			error_msg("Error: memory allocation failed", data);
-		j = 0;
-		while (tmp[j])
-		{
-			dest[i] = ft_strdup(tmp[j]);
-			if (!dest[i])
-				error_msg("Error: memory allocation failed", data);
-			i++;
-			j++;
-		}
-		free_split(tmp);
-		src++;
+		if (*s == '-')
+			sign = -1;
+		s++;
 	}
-	dest[i] = NULL;
+	while (ft_isdigit(*s))
+	{
+		res = res * 10 + (*s - '0');
+		s++;
+	}
+	return (res * sign);
 }
 
-static int	split_count(char **split, t_data *data)
+static int	check_nbr(char *s)
 {
-	char	**tmp;
-	int		i;
-	int		j;
-	int		count;
-
-	count = 0;
-	i = 0;
-	while (split[i])
-	{
-		tmp = ft_split(split[i], ' ');
-		if (!tmp)
-			error_msg("Error: memory allocation failed", data);
-		j = 0;
-		while (tmp[j])
-			j++;
-		count += j;
-		free_split(tmp);
-		i++;
-	}
-	return (count);
+	if (*s == '+' || *s == '-')
+		s++;
+	if (!*s)
+		return (0);
+	while (*s)
+		if (!ft_isdigit(*s++))
+			return (0);
+	return (1);
 }
 
-static void	format_input(char **raw, t_data *data)
+static int	validate_input(char *input, t_stack *stack)
 {
-	int	count;
+	long	n;
 
-	count = split_count(raw, data);
-	data->input = malloc(sizeof(char *) * (count + 1));
-	if (!data->input)
-		error_msg("Error: memory allocation failed", data);
-	split_dup(raw, data->input, data);
+	if (!check_nbr(input))
+		return (0);
+	n = ft_atol(input);
+	if (n < INT_MIN || n > INT_MAX)
+		return (0);
+	while (stack)
+	{
+		if (stack->value == n)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
 }
 
 void	parser(char **argv, t_data *data)
 {
 	t_stack	*new;
+	char	**split;
 	int		i;
 
-	format_input(argv, data);
-	validate_input(data->input, data);
-	i = 0;
-	while (data->input[i])
+	while (*argv)
 	{
-		new = create_node(ft_atoi(data->input[i]), -1);
-		if (!new)
-			error_msg("Error: memory allocation failed", data);
-		add_node_back(&data->stack_a, new);
-		i++;
+		split = ft_split(*argv, ' ');
+		if (!split)
+			error_msg("Error: memory allocation failed", data, split);
+		i = 0;
+		while (split[i])
+		{
+			if (!validate_input(split[i], data->stack_a))
+				error_msg("Error", data, split);
+			new = create_node(ft_atoi(split[i]), -1);
+			if (!new)
+				error_msg("Error: memory allocation failed", data, split);
+			add_node_back(&data->stack_a, new);
+			data->size_a++;
+			i++;
+		}
+		free_split(split);
+		argv++;
 	}
-	data->size = i;
 	normalize_stack(data->stack_a, data);
 }

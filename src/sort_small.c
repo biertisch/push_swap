@@ -29,16 +29,14 @@ void	sort_three_b(t_data *data)
 
 static void	push_min(t_data *data)
 {
-	int	size;
 	int	min_position;
 
-	size = get_stack_size(data->stack_a);
 	min_position = find_position(data->stack_a, find_min(data->stack_a));
-	if (min_position <= size / 2)
+	if (min_position <= data->size_a / 2)
 		while (min_position--)
 			rotate('a', data);
 	else
-		while (min_position++ < size)
+		while (min_position++ < data->size_a)
 			rev_rotate('a', data);
 	push('b', data);
 }
@@ -50,7 +48,7 @@ void	sort_five(t_data *data)
 
 	if (!data->stack_a || sorted(data->stack_a))
 		return ;
-	count = get_stack_size(data->stack_a) - 3;
+	count = data->size_a - 3;
 	i = 0;
 	while (i++ < count)
 		push_min(data);

@@ -29,14 +29,14 @@ typedef struct s_data
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	int		size;
+	int		size_a;
+	int		size_b;
 	t_list	*instr;
-	char	**input;
 }			t_data;
 
 //main
 int		main(int argc, char **argv);
-void	error_msg(char *msg, t_data *data);
+void	error_msg(char *msg, t_data *data, char **split);
 
 //mem
 void	free_split(char **arr);
@@ -47,17 +47,11 @@ void	free_data(t_data *data);
 //parser
 void	parser(char **argv, t_data *data);
 
-//input_check
-void	validate_input(char **input, t_data *data);
-
-//d_list
+//linked_list
 t_stack	*create_node(int value, int index);
 void	add_node_back(t_stack **head, t_stack *new);
 void	delete_first_node(t_stack **head);
 t_stack	*get_last_node(t_stack *head);
-int		get_stack_size(t_stack *head);
-
-//s_list
 void	delete_last_node(t_list **head);
 
 //ops
@@ -68,9 +62,10 @@ void	rev_rotate(char id, t_data *data);
 
 //ops_utils
 void	log_instr(char id, t_data *data, char *instr_a, char *instr_b);
+void	update_size(char id, t_data *data);
 t_stack	**get_stack(char id, t_data *data);
-int		do_both(char id, void (*op)(char, t_data *), t_data *data);
 char	get_other_id(char id);
+int		do_both(char id, void (*op)(char, t_data *), t_data *data);
 
 //instr
 void	print_instr(t_list *instr);

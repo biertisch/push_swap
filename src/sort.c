@@ -74,14 +74,14 @@ int	sorted(t_stack *stack)
 
 void	sort(t_data *data)
 {
-	if (!data || !data->stack_a || data->size == 1 || sorted(data->stack_a))
+	if (!data || !data->stack_a || data->size_a == 1 || sorted(data->stack_a))
 		return ;
-	if (data->size <= 3)
+	if (data->size_a <= 3)
 		sort_three(data);
-	else if (data->size <= 5)
+	else if (data->size_a <= 5)
 		sort_five(data);
-	else if (data->size <= 150)
-		quick_sort_a(data, 0, data->size - 1);
+	else if (data->size_a <= 150)
+		quick_sort_a(data, 0, data->size_a - 1);
 	else
 		radix_sort(data);
 }

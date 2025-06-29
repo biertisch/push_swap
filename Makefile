@@ -10,20 +10,18 @@ LIB = $(LIB_DIR)libft.a
 
 NAME = push_swap
 
-SRC = $(SRC_DIR)main.c\
+SRC = $(SRC_DIR)instr.c\
+		$(SRC_DIR)linked_list.c\
+		$(SRC_DIR)main.c\
 		$(SRC_DIR)mem.c\
-		$(SRC_DIR)parser.c\
-		$(SRC_DIR)input_check.c\
-		$(SRC_DIR)d_list.c\
-		$(SRC_DIR)s_list.c\
-		$(SRC_DIR)ops.c\
 		$(SRC_DIR)ops_utils.c\
-		$(SRC_DIR)instr.c\
-		$(SRC_DIR)sort.c\
-		$(SRC_DIR)sort_small.c\
+		$(SRC_DIR)ops.c\
+		$(SRC_DIR)parser.c\
 		$(SRC_DIR)quick_sort_a.c\
 		$(SRC_DIR)quick_sort_b.c\
 		$(SRC_DIR)radix_sort.c\
+		$(SRC_DIR)sort_small.c\
+		$(SRC_DIR)sort.c		
 
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 

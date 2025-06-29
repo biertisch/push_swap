@@ -30,15 +30,17 @@ void	radix_sort(t_data *data)
 	int	max_bits;
 	int	bit;
 	int	i;
+	int	full_size;
 
 	if (!data || !data->stack_a)
 		return ;
-	max_bits = find_bits(data->size - 1);
+	max_bits = find_bits(data->size_a - 1);
 	bit = 0;
+	full_size = data->size_a;
 	while (bit < max_bits)
 	{
 		i = 0;
-		while (i++ < data->size)
+		while (i++ < full_size)
 		{
 			if (((data->stack_a->index >> bit) & 1) == 0)
 				push('b', data);
@@ -47,8 +49,6 @@ void	radix_sort(t_data *data)
 		}
 		while (data->stack_b)
 			push('a', data);
-		if (sorted(data->stack_a))
-			break ;
 		bit++;
 	}
 }

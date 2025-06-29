@@ -12,39 +12,36 @@
 
 #include "../include/push_swap.h"
 
-static int	find_max_above(t_stack *stack, int pivot, int max_idx)
+static int	find_max_above(t_stack *stack, int pivot)
 {
 	int	max;
 
 	max = -1;
 	while (stack)
 	{
-		if (stack->index > max && stack->index >= pivot
-			&& stack->index <= max_idx)
+		if (stack->index > max && stack->index >= pivot)
 			max = stack->index;
 		stack = stack->next;
 	}
 	return (max);
 }
 
-static void	push_above_pivot(t_data *data, int pivot, int max_idx)
+static void	push_above_pivot(t_data *data, int pivot)
 {
-	int	size;
 	int	max;
 	int	max_position;
 
 	if (!data->stack_b)
 		return ;
-	size = get_stack_size(data->stack_b);
-	max = find_max_above(data->stack_b, pivot, max_idx);
+	max = find_max_above(data->stack_b, pivot);
 	if (max < 0)
 		return ;
 	max_position = find_position(data->stack_b, max);
-	if (max_position <= size / 2)
+	if (max_position <= data->size_b / 2)
 		while (max_position--)
 			rotate('b', data);
 	else
-		while (max_position++ < size)
+		while (max_position++ < data->size_b)
 			rev_rotate('b', data);
 	push('a', data);
 }
@@ -69,22 +66,10 @@ void	quick_sort_b(t_data *data, int min_idx, int max_idx)
 {
 	int	pivot;
 	int	count;
-/* 	int	size; */
 
 	if (!data->stack_b || min_idx > max_idx)
 		return ;
-/* 	size = get_stack_size(data->stack_b);
-	if (size <= 5)
-	{
-		if (size > 3)
-			sort_five_b(data);
-		else
-			sort_three_b(data);
-		while (data->stack_b)
-			push('a', data);
-		return ;	
-	} */
-	if (get_stack_size(data->stack_b) <= 3)
+	if (data->size_b <= 3)
 	{
 		sort_three_b(data);
 		while (data->stack_b)
@@ -96,7 +81,7 @@ void	quick_sort_b(t_data *data, int min_idx, int max_idx)
 	if (!count)
 		return ;
 	while (count--)
-		push_above_pivot(data, pivot, max_idx);
+		push_above_pivot(data, pivot);
 	quick_sort_a(data, pivot, max_idx);
 	quick_sort_b(data, min_idx, pivot - 1);
 }

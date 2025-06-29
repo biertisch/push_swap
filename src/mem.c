@@ -32,10 +32,9 @@ void	free_list(t_list **instr)
 		return ;
 	while (*instr)
 	{
-		tmp = (*instr)->next;
-		free((*instr)->content);
-		free(*instr);
-		*instr = tmp;
+		tmp = *instr;
+		*instr = (*instr)->next;
+		free(tmp);
 	}
 }
 
@@ -47,9 +46,9 @@ void	free_stack(t_stack **stack)
 		return ;
 	while (*stack)
 	{
-		tmp = (*stack)->next;
-		free(*stack);
-		*stack = tmp;
+		tmp = *stack;
+		*stack = (*stack)->next;
+		free(tmp);
 	}
 }
 
@@ -60,10 +59,5 @@ void	free_data(t_data *data)
 	free_stack(&data->stack_a);
 	free_stack(&data->stack_b);
 	free_list(&data->instr);
-	free_split(data->input);
-	data->stack_a = NULL;
-	data->stack_b = NULL;
-	data->size = 0;
-	data->instr = NULL;
-	data->input = NULL;
+	ft_bzero(data, sizeof(t_data));
 }

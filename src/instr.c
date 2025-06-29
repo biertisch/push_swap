@@ -37,9 +37,7 @@ static int	cancelling_ops(char *last_op, char *op)
 		|| (ft_strncmp(last_op, "rrb", 3) == 0 && ft_strncmp(op, "rb", 3) == 0)
 		|| (ft_strncmp(last_op, "sa", 3) == 0 && ft_strncmp(op, "sa", 3) == 0)
 		|| (ft_strncmp(last_op, "sb", 3) == 0 && ft_strncmp(op, "sb", 3) == 0)
-		|| (ft_strncmp(last_op, "ss", 3) == 0 && ft_strncmp(op, "ss", 3) == 0)
-		|| (ft_strncmp(last_op, "pa", 3) == 0 && ft_strncmp(op, "pb", 3) == 0)
-		|| (ft_strncmp(last_op, "pb", 3) == 0 && ft_strncmp(op, "pa", 3) == 0));
+		|| (ft_strncmp(last_op, "ss", 3) == 0 && ft_strncmp(op, "ss", 3) == 0));
 }
 
 static int	optimize_instr(t_list **instr, char *op, t_data *data)
@@ -60,10 +58,7 @@ static int	optimize_instr(t_list **instr, char *op, t_data *data)
 	combo = combine_ops(last_op, op);
 	if (combo)
 	{
-		free(tail->content);
-		tail->content = ft_strdup(combo);
-		if (!tail->content)
-			error_msg("Error: memory allocation failed", data);
+		tail->content = combo;
 		return (1);
 	}
 	return (0);
@@ -72,16 +67,12 @@ static int	optimize_instr(t_list **instr, char *op, t_data *data)
 void	add_instr(t_list **instr, char *op, t_data *data)
 {
 	t_list	*new;
-	char	*dup_op;
 
 	if (!instr || !op || !data || optimize_instr(instr, op, data))
 		return ;
-	dup_op = ft_strdup(op);
-	if (!dup_op)
-		error_msg("Error: memory allocation failed", data);
-	new = ft_lstnew(dup_op);
+	new = ft_lstnew(op);
 	if (!new)
-		error_msg("Error: memory allocation failed", data);
+		error_msg("Error: memory allocation failed", data, NULL);
 	ft_lstadd_back(instr, new);
 }
 

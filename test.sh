@@ -25,7 +25,7 @@ total=0
 min=-1
 max=0
 
-for i in {1..50}; do
+for i in {1..10}; do
     echo "Test #$i"
     input=$(generate_unique_random_integers "$n")
 

@@ -84,12 +84,10 @@ void	quick_sort_a(t_data *data, int min_idx, int max_idx)
 {
 	int	pivot;
 	int	count;
-	int	size;
 
 	if (!data->stack_a || min_idx >= max_idx || sorted(data->stack_a))
 		return ;
-	size = get_stack_size(data->stack_a);
-	if (size <= 3)
+	if (data->size_a <= 3)
 	{
 		sort_three(data);
 		return ;

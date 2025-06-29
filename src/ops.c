@@ -86,6 +86,7 @@ void	push(char id, t_data *data)
 	if (!src || !*src || !dest)
 		return ;
 	log_instr(id, data, "pa", "pb");
+	update_size(id, data);
 	node = *src;
 	*src = node->next;
 	if (*src)
