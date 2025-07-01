@@ -97,8 +97,8 @@ void	parser(char **argv, t_data *data)
 	while (*argv)
 	{
 		split = ft_split(*argv, ' ');
-		if (!split)
-			error_msg("Error: memory allocation failed", data, split);
+		if (!split || !*split)
+			error_msg("Error", data, split);
 		i = 0;
 		while (split[i])
 		{

@@ -16,7 +16,7 @@ void	free_split(char **arr)
 {
 	int	i;
 
-	if (!arr || !*arr)
+	if (!arr)
 		return ;
 	i = 0;
 	while (arr[i])

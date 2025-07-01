@@ -15,7 +15,7 @@
 void	error_msg(char *msg, t_data *data, char **split)
 {
 	if (msg)
-		ft_printf("%s\n", msg);
+		ft_putstr_fd(msg, 2);
 	free_split(split);
 	free_data(data);
 	exit(1);
