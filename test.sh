@@ -1,15 +1,16 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <number_of_integers>"
+if [ -z "$2" ]; then
+    echo "Usage: $0 <number_of_integers> <number_of_tests>"
     exit 1
 fi
 
 n=$1
+N=$2
 
 generate_unique_random_integers() {
     local count=$1
-    local numbers=()
+  	local numbers=()
 
     while [ "${#numbers[@]}" -lt "$count" ]; do
         num=$(( (RANDOM << 15 | RANDOM) % 20001 - 10000 ))  # Range: -10000 to 10000
@@ -25,7 +26,7 @@ total=0
 min=-1
 max=0
 
-for i in {1..10}; do
+for (( i=1; i <=N; i++ )); do
     echo "Test #$i"
     input=$(generate_unique_random_integers "$n")
 

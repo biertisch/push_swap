@@ -6,7 +6,7 @@
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 06:36:03 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/13 06:36:03 by beatde-a         ###   ########.fr       */
+/*   Updated: 2025/09/19 19:05:29 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,6 @@ static void	normalize_stack(t_stack *head, t_data *data)
 			min->index = i;
 		i++;
 	}
-}
-
-static long	ft_atol(const char *s)
-{
-	long	res;
-	int		sign;
-
-	res = 0;
-	sign = 1;
-	while (*s == 32 || (*s >= 9 && *s <= 13))
-		s++;
-	if (*s == '+' || *s == '-')
-	{
-		if (*s == '-')
-			sign = -1;
-		s++;
-	}
-	while (ft_isdigit(*s))
-	{
-		res = res * 10 + (*s - '0');
-		s++;
-	}
-	return (res * sign);
 }
 
 static int	check_nbr(char *s)
@@ -111,7 +88,7 @@ void	parser(char **argv, t_data *data)
 			data->size_a++;
 			i++;
 		}
-		free_split(split);
+		free_string_array(split);
 		argv++;
 	}
 	normalize_stack(data->stack_a, data);
