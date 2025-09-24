@@ -115,7 +115,7 @@ make test ARGS="500 10"
 ---
 ### About 42
 
-42 is a computer science school founded in Paris in 2013. It follows a project-based, peer-to-peer pedagogy focused on low-level programming and algorithmic thinking.
+42 is a computer science school founded in Paris in 2013. It follows a project-based, peer-to-peer pedagogy focused on mid-level programming and algorithmic thinking.
 
 ---
 ### License & Contact

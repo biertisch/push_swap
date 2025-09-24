@@ -1,4 +1,5 @@
 .vscode
 obj
+libft
 push_swap
 *.pdf
