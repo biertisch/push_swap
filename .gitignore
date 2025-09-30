@@ -1,2 +1,5 @@
-checker_linux
-.vscode/
+.vscode
+obj
+libft
+push_swap
+*.pdf

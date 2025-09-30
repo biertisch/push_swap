@@ -1,56 +1,70 @@
-SRC_DIR = src/
-OBJ_DIR = obj/
-LIB_DIR = libft/
+NAME		=	push_swap
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -Iinclude -I$(LIB_DIR)include
-RM = rm -rf
+SRC_FILES	=	instr linked_list main mem ops_utils ops parser quick_sort_a quick_sort_b\
+				radix_sort sort_small sort
 
-LIB = $(LIB_DIR)libft.a
+SRC_DIR		=	src/
+OBJ_DIR		=	obj/
+INC_DIR		=	include/
+LIBFT_DIR	=	libft/
 
-NAME = push_swap
+LIBFT_URL	=	https://github.com/biertisch/libft.git
+LIBFT		=	$(LIBFT_DIR)libft.a
 
-SRC = $(SRC_DIR)instr.c\
-		$(SRC_DIR)linked_list.c\
-		$(SRC_DIR)main.c\
-		$(SRC_DIR)mem.c\
-		$(SRC_DIR)ops_utils.c\
-		$(SRC_DIR)ops.c\
-		$(SRC_DIR)parser.c\
-		$(SRC_DIR)quick_sort_a.c\
-		$(SRC_DIR)quick_sort_b.c\
-		$(SRC_DIR)radix_sort.c\
-		$(SRC_DIR)sort_small.c\
-		$(SRC_DIR)sort.c		
+SRC         =	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ         =	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
+CC			=	cc
+CFLAGS		=	-Wall -Werror -Wextra -g -I$(INC_DIR) -I$(LIBFT_DIR)$(INC_DIR)
+LFLAGS		=	-L$(LIBFT_DIR) -lft
+RM			=	rm -rf
+
+SENTINEL	=	$(OBJ_DIR).compiled
+
+ARGS		=	100 100
 
 all: $(NAME)
+	@cat banner.txt
 
-$(NAME): $(LIB) obj $(OBJ) 
-	$(CC) $(OBJ) -o $@ $(LIB)
+$(NAME): $(LIBFT) $(OBJ)
+	@echo "Linking executable..."
+	@$(CC) $(OBJ) $(LFLAGS) -o $@
 
-$(LIB):
-	$(MAKE) -C $(LIB_DIR)
+$(LIBFT): | $(LIBFT_DIR)
+	@echo "Building libft..."
+	@$(MAKE) -C $(LIBFT_DIR) extra > /dev/null
 
-obj:
-	mkdir -p $(OBJ_DIR)
+$(LIBFT_DIR):
+	@echo "Cloning libft..."
+	@git clone --quiet $(LIBFT_URL) $(LIBFT_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c 
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-test:
-	curl -L -o test.sh https://raw.githubusercontent.com/biertisch/42_push_swap/refs/heads/main/test.sh
-	chmod +x test.sh
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(OBJ): $(SENTINEL)
+
+$(SENTINEL):
+	@echo "Compiling object files..."
+	@touch $@
 
 clean:
-	$(RM) $(OBJ_DIR)
-	$(MAKE) -C $(LIB_DIR) clean
+	@echo "Removing object files..."
+	@$(RM) $(OBJ_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean > /dev/null
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C $(LIB_DIR) fclean
+	@echo "Removing executable and libraries..."
+	@$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean > /dev/null
+	@$(RM) $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY: all test clean fclean re
+test: $(NAME)
+	@chmod 755 test.sh checker_linux
+	@./test.sh $(ARGS)
+
+.PHONY: all test clean fclean re test

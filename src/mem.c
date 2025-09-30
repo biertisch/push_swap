@@ -6,23 +6,11 @@
 /*   By: beatde-a <beatde-a@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:58:08 by beatde-a          #+#    #+#             */
-/*   Updated: 2025/06/17 15:58:08 by beatde-a         ###   ########.fr       */
+/*   Updated: 2025/09/19 19:04:48 by beatde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-void	free_split(char **arr)
-{
-	int	i;
-
-	if (!arr || !*arr)
-		return ;
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
 
 void	free_list(t_list **instr)
 {
