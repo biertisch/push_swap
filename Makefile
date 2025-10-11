@@ -64,6 +64,7 @@ fclean: clean
 re: fclean all
 
 test: $(NAME)
+	@chmod 755 test.sh checker_linux
 	@./test.sh $(ARGS)
 
 .PHONY: all test clean fclean re test
