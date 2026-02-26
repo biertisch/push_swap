@@ -71,7 +71,7 @@ Results based on **100 tests** per each size:
 |**3** |0 |2 | 1 |
 |**5** |0 |10 |7 |
 |**100** |694 |891 |778 |
-|**500** |6704 |6748 |6662 |
+|**500** |6662 |6748 |6704 |
 
 > Note: The tester uses 42's `checker_linux` to verify the correctness of the programme's output. You may swap it for another checker of your choice.
 
